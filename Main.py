@@ -6,19 +6,6 @@ app = Flask(__name__)
 @app.route('/index')
 def index():
     return render_template('base.html')
-    
-@app.route('/goods')
-def goods():
-    return render_template('goods.html')
-    
-@app.route('/couriers')
-def couriers():
-    return render_template('couriers.html')
-    
-@app.route('/about')
-def about():
-    return render_template('about.html')
-    
 @app.route('/contacts')
 def contacts():
     return render_template('contacts.html')
