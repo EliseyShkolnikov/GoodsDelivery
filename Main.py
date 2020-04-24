@@ -7,13 +7,13 @@ app = Flask(__name__)
 def index():
     return render_template('base.html')
 @app.route('/contacts')
-def contacts():
+def goods():
     return render_template('goods.html')
 @app.route('/goods')
-def contacts():
+def couriers():
     return render_template('couriers.html')
 @app.route('/couriers')
-def contacts():
+def about():
     return render_template('about.html')
 @app.route('/about')
 def contacts():
