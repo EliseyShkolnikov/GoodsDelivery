@@ -8,11 +8,6 @@ def index():
     return render_template('base.html')
 
 
-@app.route('/goods')
-def goods():
-    return render_template('goods.html')
-
-
 @app.route('/couriers')
 def couriers():
     return render_template('couriers.html')
