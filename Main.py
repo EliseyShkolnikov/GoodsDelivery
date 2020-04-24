@@ -22,6 +22,10 @@ def about():
 @app.route('/contacts')
 def contacts():
     return render_template('contacts.html')
+   
+@app.route('/login')
+def login():
+    return render_template('registration.html')
 
 
 if __name__ == '__main__':
