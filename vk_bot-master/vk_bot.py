@@ -7,7 +7,6 @@ class VkBot:
 
     def __init__(self, user_id):
         print("\nСоздан объект бота!")
-
         self._USER_ID = user_id
         self._USERNAME = self._get_user_name_from_vk_id(user_id)
 
@@ -22,26 +21,35 @@ class VkBot:
         return user_name.split()[0]
 
     def new_message(self, message):
-
         # Привет
         if message.upper() == self._COMMANDS[0]:
-            return f"Привет-привет, {self._USERNAME}!"
+            return f"Привет-привет, {self._USERNAME}! \nВозможные команды:\n«Курьер»\n«Работодатель»"
 
-        # Курьер
-        elif message.upper() == self._COMMANDS[1]:
-            return f"Супер, вы курьер!"
-            return f"Вам будут приходить заказы"
+        elif message == 'goodgoods':
+            return f'Супер, вы работодатель!\nСтрого следуйте форме заполнения!\n1) Отправлять 1 сообщением\n2) Учитывать синктаксиз и орфографию\n3) При ошибочной отправке снова напишете «Работодатель»'
 
         # Работодатель
         elif message.upper() == self._COMMANDS[2]:
-            return f'Супер, вы работодатель!'
+            return f'Введите пароль, чтобы стать работодателем\nПароль можно получить у администрации GoodsDelivery'
 
         # Пока
         elif message.upper() == self._COMMANDS[3]:
             return f"Пока-пока, {self._USERNAME}!"
 
+        # Курьер
+        elif message.upper() == self._COMMANDS[1]:
+            return f"Супер, вы курьер! Чтобы посмотреть заказы, нажмите «👉🏻»"
+
+        elif message == '👉🏻':
+            conn = sqlite3.connect('Goods.db')
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM Goods")
+            results1 = cursor.fetchall()
+            results = "'".join(str(results1)[2:-2].split("'")).split(',')
+            return f"!!!!!!\nВот и {results[6]} заказ \nИмя заказчика - {results[0][1:-1]} \nКуда доставлять - {results[1][2:-1]} \nТовар - {results[2][2:-1]} \n{results[5][:-1]} \nЧтобы принять нажмите «👍🏻»"
+            conn.close()
         else:
-            return "Не понимаю о чем вы..."
+            return f"Не понимаю о чем вы...\nВозможные команды:\n«Курьер»\n«Работодатель»"
 
     @staticmethod
     def _clean_all_tag_from_str(string_line):
