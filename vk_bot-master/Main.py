@@ -2,6 +2,8 @@ import random
 
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
+from vk_api.keyboard import VkKeyboard, VkKeyboardColor
+from vk_api.utils import get_random_id
 
 # --
 from vk_bot import VkBot
@@ -10,7 +12,22 @@ from vk_bot import VkBot
 
 def write_msg(user_id, message):
     vk.method('messages.send', {
-              'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048)})
+              'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard()})
+
+
+def StayHomeKeyboard():
+    keyboard = VkKeyboard(one_time=False)
+    keyboard.add_button('Курьер', color=VkKeyboardColor.POSITIVE)
+    keyboard.add_button('Работодатель', color=VkKeyboardColor.POSITIVE)
+    keyboard.add_line()  # Переход на вторую строку
+    keyboard.add_button('👉🏻', color=VkKeyboardColor.DEFAULT)
+    keyboard.add_button('Подтверждаю', color=VkKeyboardColor.DEFAULT)
+    keyboard.add_line()  # Переход на третью строку
+    keyboard.add_button('👍🏻', color=VkKeyboardColor.DEFAULT)
+    keyboard.add_button('Товар', color=VkKeyboardColor.DEFAULT)
+    keyboard.add_line()  # Переход на четвертую строку
+    keyboard.add_location_button()
+    return keyboard.get_keyboard()
 
 
 # API-ключ созданный ранее
