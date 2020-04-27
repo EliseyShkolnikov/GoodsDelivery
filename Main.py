@@ -12,7 +12,13 @@ def index():
 def couriers():
     return render_template('couriers.html')
 
-
+@app.route('/process_data/', methods=['POST'])
+def doit():
+    index = request.form['index']
+    print("aaaaaaaaaaa")
+    file = "C:/Users/666/Desktop/GoodsDelivery/1.txt"
+    file.write("aaaaaaaa")
+  
 @app.route('/about')
 def about():
     return render_template('about.html')
