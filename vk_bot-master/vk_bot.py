@@ -61,7 +61,7 @@ class VkBot:
         elif message.upper() == self._COMMANDS[1]:
             return f"Супер, вы курьер! Чтобы посмотреть заказы, нажмите «👉🏻»"
 
-        elif message == '👉🏻':
+        elif message == '👉🏿' or message == '👉🏻' :
             conn = sqlite3.connect('Goods.db')
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM Goods")
@@ -69,7 +69,7 @@ class VkBot:
             results = "'".join(str(results1)[2:-2].split("'")).split(',')
             return f"!!!!!!\nВот и {results[6]} заказ \nИмя заказчика - {results[0][1:-1]} \nКуда доставлять - {results[1][2:-1]} \nТовар - {results[2][2:-1]} \n{results[5][:-1]} \nЧтобы принять нажмите «👍🏻»"
             conn.close()
-        elif message.upper() == '👍🏻':
+        elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
             return f"Не понимаю о чем вы...\nВозможные команды:\n«Курьер»\n«Работодатель»"
