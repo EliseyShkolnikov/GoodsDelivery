@@ -9,6 +9,20 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css">
     <title>GoodsDelivery</title>
+    <style>
+      form.form1{
+      color: white;
+      margin: 20px 0 20px 0;
+      padding: 200px;
+        }
+      hr{
+        border: none; /* Убираем границу */
+        background-color: blue; /* Цвет линии */
+        color: blue; /* Цвет линии для IE6-7 */
+        height: 2px; /* Толщина линии */
+        margin: 50px;
+        }
+    </style>
 </head>
 <body>
   <div>
@@ -29,10 +43,47 @@
         </li>
     </ul>
   </div>
-  <p class="ml-5">
-        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abb29cd16039f82e3a826cf5191219ce410fc03a455fbb3260faf5ea093acf081&amp;width=1200&amp;height=600&amp;lang=ru_RU&amp;scroll=true&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b">
+  <h3 class="ml-5">Register your product:</h3>
+  <hr>
+  <form class="ml-5"; style='height: 30%;float: left;'>
+  <div class="form-group">
+    <label for="name">Your name</label>
+    <input type="name" class="form-control" id="fullname" aria-describedby="nameHelp" placeholder="Full name">
+  </div>
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input type="address" class="form-control" id="address" aria-describedby="addressHelp" placeholder="Full address">
+  </div>
+  <div class="form-group">
+    <label for="goods">Your goods</label>
+    <input type="goods" class="form-control" id="goods" aria-describedby="nameHelp" placeholder="Name goods">
+  </div>
+  <div class="form-group">
+    <label for="period">The period of placement</label>
+    <select class="form-control" id="period">
+      <option>1 day</option>
+      <option>1 weeks</option>
+      <option>1 month</option>
+      <option>1 year</option>
+      <option>forever</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="Comentarios">Comentarios</label>
+    <textarea class="form-control" id="Comentarios" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File photo</label>
+    <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+    <small id="fileHelp" class="form-text text-muted">Try to show your product in full in the photo</small>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  <p class="ml-5"; style= 'float: right; margin-right: 50px;'>
+        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abb29cd16039f82e3a826cf5191219ce410fc03a455fbb3260faf5ea093acf081&amp;width=1450&amp;height=600&amp;lang=ru_RU&amp;scroll=true&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b">
         </script>
   </p>
+  
 
 </body>
 </html>
