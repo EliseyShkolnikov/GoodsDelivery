@@ -11,10 +11,6 @@ def index():
 @app.route('/couriers')
 def couriers():
     return render_template('couriers.html')
-
-@app.route('/process_data/', methods=['POST'])
-def doit():
-    index = request.form['index']
   
 @app.route('/about')
 def about():
@@ -24,13 +20,6 @@ def about():
 @app.route('/contacts')
 def contacts():
     return render_template('contacts.html')
-
-
-@app.route('/contacts?')
-def contacts1():
-    _name = request.form['Name']
-    f = open('text.txt', 'w')
-    f.write(_name)
 
 
 @app.route('/login')
