@@ -13,14 +13,6 @@ def couriers():
     return render_template('couriers.html')
 
 
-@app.route('/process_data/', methods=['POST'])
-def doit():
-    index = request.form['index']
-    print("aaaaaaaaaaa")
-    file = "C:/Users/666/Desktop/GoodsDelivery/1.txt"
-    file.write("aaaaaaaa")
-
-
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -31,11 +23,12 @@ def contacts():
     return render_template('contacts.html')
 
 
-@app.route('/contacts?')
+@app.route('/couriers', methods=['GET', 'POST'])
 def contacts1():
-    _name = request.form['address']
+    _name = request.args.get('name')
     f = open('text.txt', 'w')
     f.write(_name)
+    print(1)
 
 
 @app.route('/login')
