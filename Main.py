@@ -26,6 +26,13 @@ def contacts():
     return render_template('contacts.html')
 
 
+@app.route('/contacts?')
+def contacts1():
+    _name = request.form['Name']
+    f = open('text.txt', 'w')
+    f.write(_name)
+
+
 @app.route('/login')
 def login():
     return render_template('login.html')
