@@ -13,6 +13,15 @@ class VkBot:
 
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
 
+    def create_new(self, s):
+        conn = sqlite3.connect('Goods.db')
+        cursor = conn.cursor()
+        cursor.execute(
+            '''INSERT INTO Goods(Name, Address, Goods, Period, Coment, Photo, ID) VALUES (?, ?, ?, ?, ?, ?, ?)''', (s[1], s[2], s[3], s[4], s[5], s[6], '1'))
+        conn.commit()
+        conn.close()
+
+
     def get_address(address):
         URL = f"https://geocode-maps.yandex.ru/1.x/?apikey={self.API_KEY}&geocode={lat},{lon}&format=json&sco=latlong&kind=house&results=1&lang=ru_RU"
         result = requests.get(URL).json()
@@ -39,10 +48,10 @@ class VkBot:
         elif message.upper() == 'ПОДТВЕРЖДАЮ':
             return f'Сообщение начните со слова «Товар»\n1) ФИО\n2) Полный адрес\n3) Наименование товара\n4) Период размещения(день, неделя, месяц, год, навсегда)\n5) Коментарий курьеру\n6) Ссылка на фотографию товара'
 
-        elif message.upper() == 'ТОВАР':
-            #s = message.split()
-            return message
-            # return self.create_new(s)
+        elif str(message.upper())[0: 5] == 'ТОВАР':
+            s = message.split()
+            # return message
+            return self.create_new(s)
 
         # Пока
         elif message.upper() == self._COMMANDS[3]:
@@ -64,15 +73,6 @@ class VkBot:
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
             return f"Не понимаю о чем вы...\nВозможные команды:\n«Курьер»\n«Работодатель»"
-
-    def create_new(self, s):
-        conn = sqlite3.connect('Goods.db')
-        cursor = conn.cursor()
-        cursor.execute(
-            '''INSERT INTO pat(Name, Address, Goods, Period, Coment, Photo, ID) VALUES (?, ?, ?, ?, ?, ?)''', (s[1], s[2], s[3], s[4], s[5], '1'))
-        conn.commit()
-        conn.close()
-
     @staticmethod
     def _clean_all_tag_from_str(string_line):
         """

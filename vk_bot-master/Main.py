@@ -20,10 +20,10 @@ def StayHomeKeyboard():
     keyboard.add_button('Курьер', color=VkKeyboardColor.POSITIVE)
     keyboard.add_button('Работодатель', color=VkKeyboardColor.POSITIVE)
     keyboard.add_line()  # Переход на вторую строку
-    keyboard.add_button('👉🏻', color=VkKeyboardColor.DEFAULT)
+    keyboard.add_button('👉🏿', color=VkKeyboardColor.DEFAULT)
     keyboard.add_button('Подтверждаю', color=VkKeyboardColor.DEFAULT)
     keyboard.add_line()  # Переход на третью строку
-    keyboard.add_button('👍🏻', color=VkKeyboardColor.DEFAULT)
+    keyboard.add_button('👍🏿', color=VkKeyboardColor.DEFAULT)
     keyboard.add_button('Товар', color=VkKeyboardColor.DEFAULT)
     keyboard.add_line()  # Переход на четвертую строку
     keyboard.add_location_button()
