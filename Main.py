@@ -2,9 +2,19 @@ from flask import Flask, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:123@localhost/py_sweater'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vk_bot-master/Goods.db'
 db = SQLAlchemy(app)
 
+
+class Task(db.Model):
+    
+    Name = db.Column(db.String())
+    Address = db.Column(db.String())
+    Goods = db.Column(db.String())
+    Period = db.Column(db.String())
+    Coment = db.Column(db.String())
+    Photo = db.Column(db.String())
+	ID = db.Column(db.Integer())
 
 @app.route('/index')
 def index():
