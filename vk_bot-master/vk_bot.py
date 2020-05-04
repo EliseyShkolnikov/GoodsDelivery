@@ -13,11 +13,13 @@ class VkBot:
 
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
 
-    def create_new(self, s):
+    def create_new(self, dannye):
         conn = sqlite3.connect('Goods.db')
         cursor = conn.cursor()
-        cursor.execute(
-            '''INSERT INTO Goods(Name, Address, Goods, Period, Coment, Photo, ID) VALUES (?, ?, ?, ?, ?, ?, ?)''', (s[1], s[2], s[3], s[4], s[5], s[6], '1'))
+        cursor.execute('''INSERT INTO GG (Name, Address, Goods, Period, Coment, Photo, ID) VALUES (?, ?, ?, ?, ?, ?, ?)''', (dannye[1], dannye[2], dannye[3], dannye[4], dannye[5], dannye[6], "1"))
+        f = open('text.txt', 'w')
+        f.write("aoaoaooaoaoaoa")
+        f.close()
         conn.commit()
         conn.close()
 
@@ -48,10 +50,13 @@ class VkBot:
         elif message.upper() == 'ПОДТВЕРЖДАЮ':
             return f'Сообщение начните со слова «Товар»\n1) ФИО\n2) Полный адрес\n3) Наименование товара\n4) Период размещения(день, неделя, месяц, год, навсегда)\n5) Коментарий курьеру\n6) Ссылка на фотографию товара'
 
-        elif str(message.upper())[0: 5] == 'ТОВАР':
-            s = message.split()
-            # return message
-            return self.create_new(s)
+        elif 'ТОВАР' in str(message.upper()):
+            if len(message.split()) != 7:
+                return f"""1) Нужно вводить все данные по 1 строке на элемент
+                           2) Скорее всего, вы не ввели один из пунктов"""
+            else:
+                self.create_new(message.split())
+                    return f"Ваш заказ принят"
 
         # Пока
         elif message.upper() == self._COMMANDS[3]:
@@ -64,7 +69,7 @@ class VkBot:
         elif message == '👉🏿' or message == '👉🏻' :
             conn = sqlite3.connect('Goods.db')
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM Goods")
+            cursor.execute("SELECT * FROM GG")
             results1 = cursor.fetchall()
             results = "'".join(str(results1)[2:-2].split("'")).split(',')
             return f"!!!!!!\nВот и {results[6]} заказ \nИмя заказчика - {results[0][1:-1]} \nКуда доставлять - {results[1][2:-1]} \nТовар - {results[2][2:-1]} \n{results[5][:-1]} \nЧтобы принять нажмите «👍🏻»"
@@ -80,7 +85,7 @@ class VkBot:
         :param string_line: Очищаемая строка
         :return: очищенная строка
         """
-
+            
         result = ""
         not_skip = True
         for i in list(string_line):
