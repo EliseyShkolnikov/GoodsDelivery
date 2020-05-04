@@ -56,7 +56,7 @@ class VkBot:
                            2) Скорее всего, вы не ввели один из пунктов"""
             else:
                 self.create_new(message.split())
-                    return f"Ваш заказ принят"
+                return f"Ваш заказ принят"
 
         # Пока
         elif message.upper() == self._COMMANDS[3]:
