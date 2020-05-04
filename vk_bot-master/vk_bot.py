@@ -13,11 +13,10 @@ class VkBot:
 
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
 
-    def create_new(self, s):
+    def create_new(self, dannye):
         conn = sqlite3.connect('Goods.db')
         cursor = conn.cursor()
-        cursor.execute(
-            '''INSERT INTO Goods(Name, Address, Goods, Period, Coment, Photo, ID) VALUES (?, ?, ?, ?, ?, ?, ?)''', (s[1], s[2], s[3], s[4], s[5], s[6], '1'))
+        cursor.execute('''INSERT INTO GG VALUES (Name, Address, Goods, Period, Coment, Photo, ID) VALUES (?, ?, ?, ?, ?, ?, ?)''', (dannye[1], dannye[2], dannye[3], dannye[4], dannye[5], dannye[6], "1"))
         conn.commit()
         conn.close()
 
@@ -49,9 +48,8 @@ class VkBot:
             return f'Сообщение начните со слова «Товар»\n1) ФИО\n2) Полный адрес\n3) Наименование товара\n4) Период размещения(день, неделя, месяц, год, навсегда)\n5) Коментарий курьеру\n6) Ссылка на фотографию товара'
 
         elif str(message.upper())[0: 5] == 'ТОВАР':
-            s = message.split()
-            # return message
-            return self.create_new(s)
+            print(message.split())
+            return self.create_new(message.split())
 
         # Пока
         elif message.upper() == self._COMMANDS[3]:
