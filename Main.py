@@ -1,16 +1,14 @@
 from flask import Flask, url_for, request, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:123@localhost/py_sweater'
+db = SQLAlchemy(app)
 
 
 @app.route('/index')
 def index():
     return render_template('base.html')
-
-
-@app.route('/couriers')
-def couriers():
-    return render_template('couriers.html')
 
 
 @app.route('/about')
@@ -25,10 +23,7 @@ def contacts():
 
 @app.route('/couriers', methods=['GET', 'POST'])
 def contacts1():
-    _name = request.args.get('name')
-    f = open('text.txt', 'w')
-    f.write(_name)
-    print(1)
+    return render_template('couriers.html')
 
 
 @app.route('/login')

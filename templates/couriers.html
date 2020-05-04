@@ -45,14 +45,14 @@
   </div>
   <h3 class="ml-5">Register your product:</h3>
   <hr>
-  <form class="ml-5"; style='height: 30%;float: left;'>
+  <form action="index.php" method="post" class="ml-5"; style='height: 30%;float: left;'>
   <div class="form-group">
     <label for="name">Your name</label>
-    <input type="name" class="form-control" name='name' id="fullname" aria-describedby="nameHelp" placeholder="Full name">
+    <input type="name" class="form-control" name='name' id="fullname" aria-describedby="nameHelp" placeholder="Full name" required>
   </div>
   <div class="form-group">
     <label for="address">Address</label>
-    <input type="address" class="form-control" id="address" aria-describedby="addressHelp" placeholder="Full address">
+    <input type="address" class="form-control" name='address' id="address" aria-describedby="addressHelp" placeholder="Full address" required>
   </div>
   <div class="form-group">
     <label for="goods">Your goods</label>
