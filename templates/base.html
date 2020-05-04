@@ -9,6 +9,9 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css">
     <title>GoodsDelivery</title>
+    <script>
+        db = openDatabase("Goods", "0.1", "A list of to do items.", 200000);
+    </script>
     <style>
         hr {
         border: none; /* Убираем границу */
@@ -21,6 +24,7 @@
            margin: 50px;
         }
     </style>
+    
 </head>
 <body>
     <div>
@@ -46,11 +50,24 @@
     <h3 class="ml-5">All Orders</h3>
     <hr>
     <l class="list-group list-group-horizontal">
-        <li class="list-group-item">Cras justo odio</li>
-        <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Name - </li>
+        <li class="list-group-item">Address - </li>
+        <li class="list-group-item">Goods - </li>
+        <li class="list-group-item">Period - </li>
+        <li class="list-group-item">Coment - </li>
+        <li class="list-group-item">Photo - </li>
     </l>
     <hr>
+    <script type="text/javascript"> 
+        db.transaction(function(tx) {
+        tx.executeSql("SELECT * FROM Goods", [], function(tx, result) {
+        for(var i = 0; i < result.rows.length; i++) {
+        document.write('<b>' + result.rows.item(i)['Name'] + '</b><br />');
+        }}, null)});
+    </script>
+    <script type="text/javascript">
+        document.write('f')
+    </script>
     <p class="ml-5">
         <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abb29cd16039f82e3a826cf5191219ce410fc03a455fbb3260faf5ea093acf081&amp;width=1200&amp;height=600&amp;lang=ru_RU&amp;scroll=true&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b">
         </script>

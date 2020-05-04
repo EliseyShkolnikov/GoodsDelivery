@@ -11,7 +11,8 @@ def index():
 @app.route('/couriers')
 def couriers():
     return render_template('couriers.html')
-  
+
+
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -20,6 +21,14 @@ def about():
 @app.route('/contacts')
 def contacts():
     return render_template('contacts.html')
+
+
+@app.route('/couriers', methods=['GET', 'POST'])
+def contacts1():
+    _name = request.args.get('name')
+    f = open('text.txt', 'w')
+    f.write(_name)
+    print(1)
 
 
 @app.route('/login')
