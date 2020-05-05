@@ -51,14 +51,13 @@ class VkBot:
             return f'Сообщение начните со слова «Товар»\n1) ФИО\n2) Полный адрес\n3) Наименование товара\n4) Период размещения(день, неделя, месяц, год, навсегда)\n5) Коментарий курьеру\n6) Ссылка на фотографию товара'
 
         elif 'ТОВАР' in str(message.upper()):
-            if len(message.split()) != 7:
+            if len(message.split()) != 6:
                 return f"""1) Нужно вводить все данные по 1 строке на элемент
                            2) Скорее всего, вы не ввели один из пунктов"""
             else:
+                picture = message.object['attachments'][0]
+                message.split().append(picture)
                 self.create_new(message.split())
-
-                    return f"Ваш заказ принят"
-
                 return f"Ваш заказ принят"
 
 
