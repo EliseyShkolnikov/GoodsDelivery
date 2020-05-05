@@ -9,19 +9,16 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
     crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css">
-    <title>GoodsDelivery</title>
     <style>
-        hr {
+        hr{
         border: none; /* Убираем границу */
         background-color: blue; /* Цвет линии */
         color: blue; /* Цвет линии для IE6-7 */
         height: 2px; /* Толщина линии */
         margin: 50px;
         }
-        l {
-           margin: 50px;
-        }
     </style>
+    <title>GoodsDelivery</title>
     
 </head>
 <body>
@@ -45,6 +42,8 @@
         </ul>
     </div>
     <p></p>
+    
+
     <h3 class="ml-5">All Orders</h3>
     <hr>
     <div class="ml-5">
@@ -53,17 +52,21 @@
             <li class="list-group-item">
                     <h1>Number - {{GG.ID}}</h1>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Name - <span class="{% if GG.done %} done {% endif %}">{{GG.Name}}</span></li>
-                    <li class="list-group-item"; style='width: 30%;float: left;'>Address - <span class="{% if GG.done %} done {% endif %}">{{GG.Address}}</span></li>
+                    <li class="list-group-item"; style='width: 30%;float: left;'>Address - <span class="{% if GG.done %} done {% endif %}">{{GG.Address}}</span>
+                        <a href="#" id='OnBottom'> ↓ Посмотреть на карте ↓</a></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Goods - <span class="{% if GG.done %} done {% endif %}">{{GG.Goods}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Period - <span class="{% if GG.done %} done {% endif %}">{{GG.Period}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Coment - <span class="{% if GG.done %} done {% endif %}">{{GG.Coment}}</span></li> 
                     <img src={{GG.Photo}} width=20% alt="бот"/>    
-                <a href="{{url_for('delete', ID=GG.ID)}}" class="btn btn-danger btn-sm">Take this</a>               
+                <a href="{{url_for('delete', ID=GG.ID)}}" class="btn btn-danger btn-sm">Take this</a>     
                 <hr>
             </li>         
             {% endfor %}
         </ul>
     </div>
-
+<p class="ml-5">
+        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abb29cd16039f82e3a826cf5191219ce410fc03a455fbb3260faf5ea093acf081&amp;width=1450&amp;height=600&amp;lang=ru_RU&amp;scroll=true&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b">
+        </script>
+</p>
 </body>
 </html>
