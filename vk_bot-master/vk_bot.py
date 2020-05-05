@@ -57,8 +57,6 @@ class VkBot:
             else:
                 self.create_new(message.split())
 
-                    return f"Ваш заказ принят"
-
                 return f"Ваш заказ принят"
 
 

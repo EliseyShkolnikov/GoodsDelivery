@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +10,6 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css">
     <title>GoodsDelivery</title>
-    <script>
-        db = openDatabase("Goods", "0.1", "A list of to do items.", 200000);
-    </script>
     <style>
         hr {
         border: none; /* Убираем границу */
@@ -49,39 +47,23 @@
     <p></p>
     <h3 class="ml-5">All Orders</h3>
     <hr>
-    <l class="list-group list-group-horizontal">
-        <li class="list-group-item">Name - </li>
-        <li class="list-group-item">Address - </li>
-        <li class="list-group-item">Goods - </li>
-        <li class="list-group-item">Period - </li>
-        <li class="list-group-item">Coment - </li>
-        <li class="list-group-item">Photo - </li>
-    </l>
-    <div class="card-body">
+    <div class="ml-5">
         <ul class="list-group">
-            {% for task in tasks %}
+            {% for GG in tasks %}
             <li class="list-group-item">
-                <span class="{% if task.done %} done {% endif %}">{{task.Name}}</span>
-                <a href="{{url_for('delete', id=task.id)}}" class="btn btn-danger btn-sm">Take this</a>
-            </li>
+                    <h1>Number - {{GG.ID}}</h1>
+                    <li class="list-group-item"; style='width: 30%;float: left;'>Name - <span class="{% if GG.done %} done {% endif %}">{{GG.Name}}</span></li>
+                    <li class="list-group-item"; style='width: 30%;float: left;'>Address - <span class="{% if GG.done %} done {% endif %}">{{GG.Address}}</span></li>
+                    <li class="list-group-item"; style='width: 30%;float: left;'>Goods - <span class="{% if GG.done %} done {% endif %}">{{GG.Goods}}</span></li>
+                    <li class="list-group-item"; style='width: 30%;float: left;'>Period - <span class="{% if GG.done %} done {% endif %}">{{GG.Period}}</span></li>
+                    <li class="list-group-item"; style='width: 30%;float: left;'>Coment - <span class="{% if GG.done %} done {% endif %}">{{GG.Coment}}</span></li> 
+                    <img src={{GG.Photo}} width=20% alt="бот"/>    
+                <a href="{{url_for('delete', ID=GG.ID)}}" class="btn btn-danger btn-sm">Take this</a>               
+                <hr>
+            </li>         
             {% endfor %}
         </ul>
     </div>
-    <hr>
-    <script type="text/javascript"> 
-        db.transaction(function(tx) {
-        tx.executeSql("SELECT * FROM Goods", [], function(tx, result) {
-        for(var i = 0; i < result.rows.length; i++) {
-        document.write('<b>' + result.rows.item(i)['Name'] + '</b><br />');
-        }}, null)});
-    </script>
-    <script type="text/javascript">
-        document.write('f')
-    </script>
-    <p class="ml-5">
-        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abb29cd16039f82e3a826cf5191219ce410fc03a455fbb3260faf5ea093acf081&amp;width=1200&amp;height=600&amp;lang=ru_RU&amp;scroll=true&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b">
-        </script>
-    </p>
 
 </body>
 </html>
