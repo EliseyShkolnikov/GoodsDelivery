@@ -57,6 +57,16 @@
         <li class="list-group-item">Coment - </li>
         <li class="list-group-item">Photo - </li>
     </l>
+    <div class="card-body">
+        <ul class="list-group">
+            {% for task in tasks %}
+            <li class="list-group-item">
+                <span class="{% if task.done %} done {% endif %}">{{task.Name}}</span>
+                <a href="{{url_for('delete', id=task.id)}}" class="btn btn-danger btn-sm">Take this</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     <hr>
     <script type="text/javascript"> 
         db.transaction(function(tx) {
