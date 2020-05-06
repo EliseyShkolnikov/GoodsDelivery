@@ -1,25 +1,27 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+import test
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vk_bot-master/Goods.db'
 db = SQLAlchemy(app)
 
+
 class GG(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(200))
     Address = db.Column(db.String())
+    Address_log = db.Column(db.String())
     Goods = db.Column(db.String())
     Period = db.Column(db.String())
     Coment = db.Column(db.String())
     Photo = db.Column(db.String())
 
-	
 
 @app.route('/index')
 def index():
     tasks = GG.query.all()
-    return render_template('base.html', tasks = tasks)
+    return render_template('base.html', tasks=tasks)
 
 
 @app.route('/about')
@@ -54,9 +56,12 @@ def delete(ID):
     return redirect(url_for('index'))
 
 # Вот тут кидаем в бд данные пользователя
+
+
 @app.route('/create-task', methods=['POST'])
 def create():
-    new_task = GG(Name=request.form['name'], Address=request.form['address'], Goods=request.form['goods'], Period=request.form['period'], Coment=request.form['coment'],Photo=request.form['photo'])
+    new_task = GG(Name=request.form['name'], Address=request.form['address'], Address_log=str(test.Map.get_address(request.form['address']))[1:-1], Goods=request.form['goods'],
+                  Period=request.form['period'], Coment=request.form['coment'], Photo=request.form['photo'])
     db.session.add(new_task)
     db.session.commit()
     return redirect(url_for('contacts1'))
