@@ -1,4 +1,6 @@
 import random
+import io
+import requests
 
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
@@ -41,20 +43,19 @@ vk = vk_api.VkApi(token=token)
 longpoll = VkLongPoll(vk)
 
 print("Server started")
-for event in longpoll.listen():
 
+    
+for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW:
 
+
+
         if event.to_me:
-
-            print(f'New message from {event.user_id}', end='')
-
+            print(f'New message from vk.com/id{event.user_id}', end='')
             bot = VkBot(event.user_id)
-
-            if event.text[0] == "/":
-                write_msg(event.user_id, "FUUUUUCK")
+            if event.text == "":
+                pass
             else:
                 write_msg(event.user_id, bot.new_message(event.text))
-
-            print('Text: ', event.text)
+            print(f"Text - {'vk.com/photo' + event.attachments['attach1'] if event.text == '' else event.text}")
             print("-------------------")
