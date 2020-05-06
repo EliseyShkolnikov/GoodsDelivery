@@ -72,8 +72,8 @@ class VkBot:
             cursor.execute("SELECT * FROM GG")
             results1 = cursor.fetchall()
             results = "'".join(str(results1)[2:-2].split("'")).split(',')
-            return f"!!!!!!\nВот и {results[6]} заказ \nИмя заказчика - {results[0][1:-1]} \nКуда доставлять - {results[1][2:-1]} \nТовар - {results[2][2:-1]} \n{results[5][:-1]} \nЧтобы принять нажмите «👍🏻»"
             conn.close()
+            return f"!!!!!!\nВот и {results[6]} заказ \nИмя заказчика - {results[0][1:-1]} \nКуда доставлять - {results[1][2:-1]} \nТовар - {results[2][2:-1]} \n{results[5][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
