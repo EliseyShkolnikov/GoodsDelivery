@@ -65,7 +65,6 @@
  
         // Добавление метки
         // https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/
-        for (var GG in tasks) 
             {
                 var myPlacemark = new ymaps.Placemark([59.1332375, 37.9887025], {
                     // Хинт показывается при наведении мышкой на иконку метки.
@@ -79,6 +78,70 @@
  
     }
     </script>
+
+
+    <style>
+        .popup-fade {
+            display: none;
+        }
+        .popup-fade:before {
+            content: '';
+            background: #000;
+            position: fixed; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 200%;
+            opacity: 0.7;
+            z-index: 9999;
+        }
+        .popup {
+            position: fixed;
+            top: 0%;
+            left: 20%;
+            padding: 20px;
+            width: 70%;
+            margin-left: -200px;    
+            background: #fff;
+            border: 1px solid orange;
+            border-radius: 4px; 
+            z-index: 99999;
+            opacity: 1; 
+        }
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        </style>
+         
+        <script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function($) {
+            $('.popup-open').click(function() {
+                $('.popup-fade').fadeIn();
+                return false;
+            }); 
+            
+            $('.popup-close').click(function() {
+                $(this).parents('.popup-fade').fadeOut();
+                return false;
+            });     
+         
+            $(document).keydown(function(e) {
+                if (e.keyCode === 27) {
+                    e.stopPropagation();
+                    $('.popup-fade').fadeOut();
+                }
+            });
+            
+            $('.popup-fade').click(function(e) {
+                if ($(e.target).closest('.popup').length == 0) {
+                    $(this).fadeOut();                  
+                }
+            });
+        });
+        </script>
 
 
 
@@ -115,7 +178,7 @@
                     <h1>Number - {{GG.ID}}</h1>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Name - <span class="{% if GG.done %} done {% endif %}">{{GG.Name}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Address - <span class="{% if GG.done %} done {% endif %}">{{GG.Address}}</span>
-                        <a href="#" id='OnBottom'> ↓ Посмотреть на карте ↓</a></li>
+                        <a href="#" class="popup-open"> ↓ Посмотреть на карте ↓</a></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Goods - <span class="{% if GG.done %} done {% endif %}">{{GG.Goods}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Period - <span class="{% if GG.done %} done {% endif %}">{{GG.Period}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Coment - <span class="{% if GG.done %} done {% endif %}">{{GG.Coment}}</span></li> 
@@ -126,6 +189,11 @@
             {% endfor %}
         </ul>
     </div>
-    <div id="map" style="width: 1200px; height: 800px"></div>
+    <div class="popup-fade">
+        <div class="popup">
+            <a class="popup-close" href="#">Закрыть</a>
+            <div id="map" style="width: 1200px; height: 800px"></div>
+        </div>      
+    </div>
 </body>
 </html>
