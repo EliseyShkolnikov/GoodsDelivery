@@ -47,9 +47,7 @@ print("Server started")
     
 for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW:
-
-
-
+        print(event.attachments)
         if event.to_me:
             print(f'New message from vk.com/id{event.user_id}', end='')
             bot = VkBot(event.user_id)
@@ -57,5 +55,8 @@ for event in longpoll.listen():
                 pass
             else:
                 write_msg(event.user_id, bot.new_message(event.text))
-            print(f"Text - {'vk.com/photo' + event.attachments['attach1'] if event.text == '' else event.text}")
+            if 'photo' in str(event.attachments):
+                print('Photo attach - vk.com/photo' + event.attachments['attach1'])
+            if event.text:
+                print(f"Text - {event.text}")
             print("-------------------")
