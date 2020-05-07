@@ -60,7 +60,11 @@ def delete(ID):
 
 @app.route('/create-task', methods=['POST'])
 def create():
-    new_task = GG(Name=request.form['name'], Address=request.form['address'], Address_log=str(test.Map.get_address(request.form['address']))[1:-1], Goods=request.form['goods'],
+    try:
+        log = str(test.Map.get_address(request.form['address']))[1:-1]
+    except:
+        log = '59.14, 37.9'
+    new_task = GG(Name=request.form['name'], Address=request.form['address'], Address_log=log, Goods=request.form['goods'],
                   Period=request.form['period'], Coment=request.form['coment'], Photo=request.form['photo'])
     db.session.add(new_task)
     db.session.commit()
