@@ -66,7 +66,8 @@
         // Добавление метки
         // https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/
             {
-                var myPlacemark = new ymaps.Placemark([59.1332375, 37.9887025], {
+                var temp = this.getAttribute(GG.Address_log);
+                var myPlacemark = new ymaps.Placemark([temp], {
                     // Хинт показывается при наведении мышкой на иконку метки.
                     hintContent: 'Содержимое всплывающей подсказки',
                     // Балун откроется при клике по метке.
@@ -151,6 +152,7 @@
         <h1 class="ml-5">GoodsDelivery
         <img src="https://sun9-54.userapi.com/c857320/v857320278/17ab71/PLa_D6qPLTA.jpg" width=4% alt="бот"/>
         </h1>
+        <p></p>
         <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
               <a class="nav-link active" href="/index">Order goods</a>
@@ -191,7 +193,7 @@
     </div>
     <div class="popup-fade">
         <div class="popup">
-            <a class="popup-close" href="#">Закрыть</a>
+            <a class="popup-close" href="#" onclick="window.location.reload(true);">Закрыть</a>
             <div id="map" style="width: 1200px; height: 800px"></div>
         </div>      
     </div>

@@ -8,18 +8,29 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
     crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+      hr{
+          border: none; /* Убираем границу */
+          background-color: blue; /* Цвет линии */
+          color: blue; /* Цвет линии для IE6-7 */
+          height: 2px; /* Толщина линии */
+          margin: 50px;
+          }
+  </style> 
+
 </head>
 <body>
   <div>
     <h1  class="ml-5">GoodsDelivery
     <img src="https://sun9-54.userapi.com/c857320/v857320278/17ab71/PLa_D6qPLTA.jpg" width=4% alt="бот"/>
     </h1>
+    <p></p>
     <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
-              <a class="nav-link" href="/index">Main Menu</a>
+              <a class="nav-link" href="/index">Order goods</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/couriers">Order goods</a>
+              <a class="nav-link" href="/couriers">For couriers</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/about">Who are we?</a>
@@ -29,6 +40,9 @@
             </li>
         </ul>
   </div>
+  <p></p>
+  <h3 class="ml-5">GoodsDelivery</h3>
+  <hr>
   <h3 align="center">Bot</h3>
   <div class="cardholder">
         <div class="mx-3 mb-2" style="width: 53rem; margin: 1rem auto;">
@@ -42,6 +56,7 @@
           </div>
         </div>
   </div>
+  <hr>
   <h3 align="center">The creators of the project</h3>
     <div class="cardholder">
         <div class="mx-3 mb-2" style="width: 18rem; margin: 1rem auto;">
@@ -70,5 +85,35 @@
           </div>
         </div>
     </div>
+  <hr>
+  <h3 align="center">Communication with us</h3>
+  <p></p>
+  <div> </div>
+<div class="container">
+<div class="row">
+<div class="col-md-4"> </div>
+<div class="col-md-4">
+   <form action="./mail.php" method="post">
+<div class="form-group">
+   <label for="name">Ваше имя:</label>
+   <input type="name" name="name" class="form-control" id="name" placeholder="Name">
+</div>
+<div class="form-group">
+   <label for="email1">E-mail:</label>
+   <input type="email" name="email" class="form-control" id="email1" placeholder="Email">
+</div>
+<div class="form-group">
+   <label for="phone">Номер телефона:</label>
+   <input type="phone" name="phone" class="form-control" id="phone" placeholder="Phone">
+</div>
+<div class="form-group">
+   <label for="message">Сообщение:</label>
+   <textarea class="form-control" name="message" rows="3"></textarea>
+</div>
+   <button type="submit" class="btn btn-info">Отправить сообщение</button>
+</form>
+</div>
+<div class="col-md-4"> </div> </div>
+</div>
 </body>
 </html>
