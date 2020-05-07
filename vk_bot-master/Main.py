@@ -53,7 +53,7 @@ for event in longpoll.listen():
             if event.text == "":
                 pass
             else:
-                write_msg(event.user_id, bot.new_message(event.text))
+                write_msg(event.user_id, bot.new_message(event))
             if "'attach1_type', 'photo'" in str(event.attachments):
                 print('Photo attach - vk.com/photo' + event.attachments['attach1'])
             if event.text:

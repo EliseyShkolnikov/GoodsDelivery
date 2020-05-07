@@ -1,7 +1,7 @@
 import bs4 as bs4
 import sqlite3
 import requests
-
+import os.path
 
 class VkBot:
 
@@ -14,11 +14,14 @@ class VkBot:
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
 
     def create_new(self, dannye):
-        conn = sqlite3.connect('Goods.db')
-        cursor = conn.cursor()
-        cursor.execute('''INSERT INTO GG (Name, Address, Goods, Period, Coment, Photo, ID) VALUES (?, ?, ?, ?, ?, ?, ?)''', (dannye[1], dannye[2], dannye[3], dannye[4], dannye[5], dannye[6], f"{user_id}"))
-        conn.commit()
-        conn.close()
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(BASE_DIR, "PupilPremiumTable.db")
+        with sqlite3.connect(db_path) as db:
+            conn = sqlite3.connect('\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\Goods.db')
+            cursor = conn.cursor()
+            cursor.execute('''INSERT INTO GG (Name, Address, Address_log, Goods, Period, Coment, Photo) VALUES (?, ?, ?, ?, ?, ?, ?)''', (dannye[1], dannye[2], dannye[3], dannye[3], dannye[4], dannye[5], dannye[6]))
+            conn.commit()
+            conn.close()
 
 
     def get_address(address):
@@ -34,8 +37,8 @@ class VkBot:
 
         return user_name.split()[0]
 
-    def new_message(self, message):
-
+    def new_message(self, messag):
+        message = messag.text
         # Привет
         if message.upper() == self._COMMANDS[0]:
             return f"Привет-привет, {self._USERNAME}! \nВозможные команды:\n«Курьер»\n«Работодатель»"
@@ -52,9 +55,10 @@ class VkBot:
                 return f"""1) Нужно вводить все данные по 1 строке на элемент
                            2) Скорее всего, вы не ввели один из пунктов"""
             else:
-                picture = message['attachments'][0]
-                message.split().append(picture)
-                self.create_new(message.split())
+                picture = f"vk.com/photo{messag.attachments['attach1']}"
+                perem = message.split()
+                perem.append(picture)
+                self.create_new(perem)
                 return f"Ваш заказ принят"
 
 
@@ -71,9 +75,11 @@ class VkBot:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM GG")
             results1 = cursor.fetchall()
+            print(results1)
             results = "'".join(str(results1)[2:-2].split("'")).split(',')
+            print(results)
             conn.close()
-            return f"!!!!!!\nВот и {results[6]} заказ \nИмя заказчика - {results[0][1:-1]} \nКуда доставлять - {results[1][2:-1]} \nТовар - {results[2][2:-1]} \n{results[5][:-1]} \nЧтобы принять нажмите «👍🏻»"
+            return f"!!!!!!\nВот и {results[0]} заказ \nИмя заказчика - {results[1][1:-1]} \nКуда доставлять - {results[2][2:-1]} \nТовар - {results[4][2:-1]} \n{results[6][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
