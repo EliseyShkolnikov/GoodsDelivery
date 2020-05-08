@@ -114,6 +114,25 @@
             top: 10px;
             right: 10px;
         }
+        {
+        margin: 0;
+        padding: 0;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        .wrapper {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+        .content {
+          flex: 1 0 auto;
+        }
+        .footer {
+          flex: 0 0 auto;
+        }
         </style>
          
         <script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>
@@ -148,12 +167,17 @@
 
 </head>
 <body>
+<div class="wrapper">
+<div class="content">
     <div>
         <h1 class="ml-5">GoodsDelivery
         <img src="https://sun9-54.userapi.com/c857320/v857320278/17ab71/PLa_D6qPLTA.jpg" width=4% alt="бот"/>
         </h1>
         <p></p>
         <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+              <a class="nav-link" href="/main">Main</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link active" href="/index">Order goods</a>
             </li>
@@ -197,5 +221,18 @@
             <div id="map" style="width: 1200px; height: 800px"></div>
         </div>      
     </div>
+</div>
+<div class="footer">
+    <div class="card bg-dark text-white">
+      <img src="https://sun1-15.userapi.com/ifbQNgHTvHVfWHY9bUYcX4FrK_UKkZ_lmog_Xg/CEIAdlR2QK0.jpg" class="card-img" alt="...">
+      <div class="card-img-overlay">
+        <h5 class="card-title">GoodsDelivery</h5>
+        <p class="card-text">This website it is property Sofronov Sergei ans Shkolnikov Elisei. All products it is forbidden to use it without written confirmation.</p>
+        <p class="card-text" align="right">2020. GoodsDelivery</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 
 </body>
 </html>

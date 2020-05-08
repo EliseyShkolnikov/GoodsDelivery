@@ -22,15 +22,39 @@
         height: 2px; /* Толщина линии */
         margin: 50px;
         }
+      {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .content {
+        flex: 1 0 auto;
+      }
+      .footer {
+        flex: 0 0 auto;
+      }
     </style>
 </head>
 <body>
+<div class="wrapper">
+<div class="content">
   <div>
     <h1 class="ml-5">GoodsDelivery
     <img src="https://sun9-54.userapi.com/c857320/v857320278/17ab71/PLa_D6qPLTA.jpg" width=4% alt="бот"/>
     </h1>
     <p></p>
     <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link" href="/main">Main</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="/index">Order goods</a>
         </li>
@@ -82,11 +106,26 @@
   </div>
   <button type="submit" class="btn btn-primary" >Submit</button>
 </form>
+
   <p class="ml-5"; style= 'float: right; margin-right: 50px;'>
         <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abb29cd16039f82e3a826cf5191219ce410fc03a455fbb3260faf5ea093acf081&amp;width=1450&amp;height=600&amp;lang=ru_RU&amp;scroll=true&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b">
         </script>
   </p>
   
+</div>
 
+<hr>
+<div class="footer">
+    <div class="card bg-dark text-white">
+      <img src="https://sun1-15.userapi.com/ifbQNgHTvHVfWHY9bUYcX4FrK_UKkZ_lmog_Xg/CEIAdlR2QK0.jpg" class="card-img" alt="...">
+      <div class="card-img-overlay">
+        <h5 class="card-title">Название карточки</h5>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+        <p class="card-text" align="right">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 
 </body>
 </html>

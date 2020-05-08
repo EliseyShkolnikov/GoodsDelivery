@@ -18,6 +18,11 @@ class GG(db.Model):
     Photo = db.Column(db.String())
 
 
+@app.route('/main')
+def main():
+    return render_template('main.html')
+
+
 @app.route('/index')
 def index():
     tasks = GG.query.all()
