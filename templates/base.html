@@ -19,7 +19,6 @@
         }
     </style>
     <title>GoodsDelivery</title>
-    
 
     <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script>
@@ -42,7 +41,6 @@
             // Элементы управления
             // https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/controls/standard-docpage/
             controls: [
- 
                 'zoomControl', // Ползунок масштаба
                 'rulerControl', // Линейка
                 'routeButtonControl', // Панель маршрутизации
@@ -60,22 +58,10 @@
                     }
                 })
  
-            ]
-        });
- 
-        // Добавление метки
-        // https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/
-            {
-                var temp = this.getAttribute(GG.Address_log);
-                var myPlacemark = new ymaps.Placemark([temp], {
-                    // Хинт показывается при наведении мышкой на иконку метки.
-                    hintContent: 'Содержимое всплывающей подсказки',
-                    // Балун откроется при клике по метке.
-                    balloonContent: 'Содержимое балуна'
-                });
-            }
-        // После того как метка была создана, добавляем её на карту.
-        myMap.geoObjects.add(myPlacemark);
+                ]
+            });
+        var control = myMap.controls.get('routePanelControl');
+
  
     }
     </script>
