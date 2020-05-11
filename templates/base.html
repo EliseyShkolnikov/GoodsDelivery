@@ -19,7 +19,6 @@
         }
     </style>
     <title>GoodsDelivery</title>
-    
 
     <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script>
@@ -42,7 +41,6 @@
             // Элементы управления
             // https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/controls/standard-docpage/
             controls: [
- 
                 'zoomControl', // Ползунок масштаба
                 'rulerControl', // Линейка
                 'routeButtonControl', // Панель маршрутизации
@@ -60,22 +58,10 @@
                     }
                 })
  
-            ]
-        });
- 
-        // Добавление метки
-        // https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Placemark-docpage/
-            {
-                var temp = this.getAttribute(GG.Address_log);
-                var myPlacemark = new ymaps.Placemark([temp], {
-                    // Хинт показывается при наведении мышкой на иконку метки.
-                    hintContent: 'Содержимое всплывающей подсказки',
-                    // Балун откроется при клике по метке.
-                    balloonContent: 'Содержимое балуна'
-                });
-            }
-        // После того как метка была создана, добавляем её на карту.
-        myMap.geoObjects.add(myPlacemark);
+                ]
+            });
+        var control = myMap.controls.get('routePanelControl');
+
  
     }
     </script>
@@ -163,7 +149,13 @@
         });
         </script>
 
-
+        <script language="JavaScript">
+            function change()
+            {
+                alert("Hi! We take a order. Please complete the order!");
+            }
+                
+        </script>
 
 </head>
 <body>
@@ -209,16 +201,15 @@
                     <li class="list-group-item"; style='width: 30%;float: left;'>Period - <span class="{% if GG.done %} done {% endif %}">{{GG.Period}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Coment - <span class="{% if GG.done %} done {% endif %}">{{GG.Coment}}</span></li> 
                     <img src={{GG.Photo}} width=20% alt="бот"/>    
-                <a href="{{url_for('delete', ID=GG.ID)}}" class="popup-open">Take this</a>     
+                <a href="{{url_for('delete', ID=GG.ID)}}" class="btn btn-danger btn-sm" onclick = 'change();'>
+                Take this</a>     
                 <hr>
             </li>         
             {% endfor %}
             
         </ul>
     </div>
-    <script language="JavaScript">
-                alert("Привет, мир!");
-            </script>
+    
     <div class="popup-fade">
         <div class="popup">
             <a class="popup-close" href="#" onclick="window.location.reload(true);">Закрыть</a>
