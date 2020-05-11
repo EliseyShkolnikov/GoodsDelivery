@@ -3,8 +3,8 @@ import io
 import requests
 
 import vk_api
-from vk_api.longpoll import VkLongPoll, VkEventType
-from vk_api.keyboard import VkKeyboard, VkKeyboardColor
+from vk_api.longpoll import *
+from vk_api.keyboard import *
 from vk_api.utils import get_random_id
 
 # --
@@ -38,12 +38,11 @@ token = "b1652a5628af75bb7a91fd5cb0b47aae8699a941ad25c637ad6573ca49c157f722036e5
 
 # Авторизуемся как сообщество
 vk = vk_api.VkApi(token=token)
-
+vk_to_use_pic = vk.get_api()
 # Работа с сообщениями
 longpoll = VkLongPoll(vk)
 
 print("Server started")
-
     
 for event in longpoll.listen():
     if event.type == VkEventType.MESSAGE_NEW:
@@ -54,8 +53,11 @@ for event in longpoll.listen():
                 pass
             else:
                 write_msg(event.user_id, bot.new_message(event))
-            if "'attach1_type', 'photo'" in str(event.attachments):
-                print('Photo attach - vk.com/photo' + event.attachments['attach1'])
+            if "'attach1_type': 'photo'" in str(event.attachments):
+                msg = vk_to_use_pic.messages.getById(message_ids=event.message_id)
+                photo_url = str(msg['items'][0]['attachments'][0]['photo']['sizes']).split("'type':")[-1].split()[2][1:-2]
+                bot.take_pic_from_Main(photo_url)
+                print('Photo attach ' + photo_url)
             if event.text:
                 print(f"Text - {event.text}")
             print("-------------------")

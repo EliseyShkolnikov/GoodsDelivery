@@ -2,9 +2,9 @@ import bs4 as bs4
 import sqlite3
 import requests
 import os.path
+import io
 
 class VkBot:
-
     def __init__(self, user_id):
         self.API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
         print("\nСоздан объект бота!")
@@ -13,13 +13,19 @@ class VkBot:
 
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
 
+    # Like shitcode?
+    def take_pic_from_Main(self, pic_url):
+        global picture
+        picture = pic_url
+    # Like shitcode?
+
     def create_new_in_GG(self, dannye):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         db_path = os.path.join(BASE_DIR, "Goods.db")
         with sqlite3.connect(db_path) as db:
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
-            cursor.execute('''INSERT INTO GG (Name, Address, Address_log, Goods, Period, Coment, Photo) VALUES (?, ?, ?, ?, ?, ?, ?)''', (dannye[1], dannye[2], dannye[3], dannye[3], dannye[4], dannye[5], dannye[6]))
+            cursor.execute('''INSERT INTO GG (Name, Address, Address_log, Goods, Period, Coment, Photo, Condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', (dannye[1], f"{dannye[2]} {self._USER_ID}", dannye[3], dannye[3], dannye[4], dannye[5], dannye[6], "Принят на сервере"))
             conn.commit()
             conn.close()
         
@@ -29,11 +35,21 @@ class VkBot:
         with sqlite3.connect(db_path) as db:
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
-            cursor.execute('''INSERT INTO Goods_processed (ID_from_GG, Who_took, condition) VALUES (?, ?, ?)''', (dannye[0], dannye[1], dannye[2]))
+            cursor.execute('''INSERT INTO Goods_processed (ID_from_GG, Who_took, recipient) VALUES (?, ?, ?)''', (dannye[0], dannye[1], dannye[2]))
             conn.commit()
             conn.close()
-    def hide_from_GG(self, dannye):
-        pass
+        self.update_condition_order_GG
+    
+    def update_condition_order_GG(self):
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(BASE_DIR, "Goods.db")
+        with sqlite3.connect(db_path) as db:
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute('''INSERT INTO GG (Condition) VALUES (?)''', ("Курьер принял ваш заказ"))
+            conn.commit()
+            conn.close()
+
 
     def get_address(address):
         URL = f"https://geocode-maps.yandex.ru/1.x/?apikey={self.API_KEY}&geocode={lat},{lon}&format=json&sco=latlong&kind=house&results=1&lang=ru_RU"
@@ -62,14 +78,14 @@ class VkBot:
             return f'Сообщение начните со слова «Товар»\n1) ФИО\n2) Полный адрес\n3) Наименование товара\n4) Период размещения(день, неделя, месяц, год, навсегда)\n5) Коментарий курьеру\n6) Ссылка на фотографию товара'
 
         elif 'ТОВАР' in str(message.upper()):
-            if len(message.split()) != 6:
+            if len(message.split('\n')) != 6:
                 return f"""1) Нужно вводить все данные по 1 строке на элемент
                            2) Скорее всего, вы не ввели один из пунктов"""
             else:
-                picture = f"vk.com/photo{messag.attachments['attach1']}"
-                perem = message.split()
+                perem = message.split('\n')
                 perem.append(picture)
                 self.create_new_in_GG(perem)
+                print("ffffffffffffff")
                 return f"Ваш заказ принят"
 
 
@@ -96,7 +112,7 @@ class VkBot:
             return f"!!!!!!\nВот и {results[0]} заказ \nИмя заказчика - {results[1][1:-1]} \nКуда доставлять - {results[2][2:-1]} \nТовар - {results[4][2:-1]} \n{results[6][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
-            to_upload = [results[0], f"vk.com/id{self._USER_ID}", "Принято курьером"]
+            to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"F"]
             self.create_new_in_Goods_processed(to_upload)
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
