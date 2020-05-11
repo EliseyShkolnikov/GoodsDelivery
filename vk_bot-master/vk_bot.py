@@ -73,7 +73,7 @@ class VkBot:
         elif message == '👉🏿' or message == '👉🏻' :
             conn = sqlite3.connect('Goods.db')
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM GG")
+            cursor.execute("SELECT * FROM GG ORDER BY RANDOM() LIMIT 1")
             results1 = cursor.fetchall()
             print(results1)
             results = "'".join(str(results1)[2:-2].split("'")).split(',')
@@ -82,6 +82,7 @@ class VkBot:
             return f"!!!!!!\nВот и {results[0]} заказ \nИмя заказчика - {results[1][1:-1]} \nКуда доставлять - {results[2][2:-1]} \nТовар - {results[4][2:-1]} \n{results[6][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
+            
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
             return f"Не понимаю о чем вы...\nВозможные команды:\n«Курьер»\n«Работодатель»"
