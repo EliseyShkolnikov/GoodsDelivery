@@ -80,9 +80,9 @@ class VkBot:
             return f"Супер, вы курьер! Чтобы посмотреть заказы, нажмите «👉🏻»"
         # Курьер получает заказ
         elif message == '👉🏿' or message == '👉🏻' :
-             BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
             db_path = os.path.join(BASE_DIR, "Goods.db")
-            conn = sqlite3.connect('Goods.db')
+            conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM GG ORDER BY RANDOM() LIMIT 1")
             results1 = cursor.fetchall()
