@@ -11,25 +11,29 @@ from vk_api.utils import get_random_id
 from vk_bot import VkBot
 # --
 
-
+num = 0
 def write_msg(user_id, message):
+    num = bot.update_board()
     vk.method('messages.send', {
-              'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard()})
+              'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
 
 
-def StayHomeKeyboard():
-    print(random.randint(1, 2))
+def StayHomeKeyboard(a):
     keyboard = VkKeyboard(one_time=False)
-    keyboard.add_button('Курьер', color=VkKeyboardColor.POSITIVE)
-    keyboard.add_button('Работодатель', color=VkKeyboardColor.POSITIVE)
-    keyboard.add_line()  # Переход на вторую строку
-    keyboard.add_button(['👉🏿', '👉🏻'][random.randint(0, 1)], color=VkKeyboardColor.DEFAULT)
-    keyboard.add_button('Подтверждаю', color=VkKeyboardColor.DEFAULT)
-    keyboard.add_line()  # Переход на третью строку
-    keyboard.add_button(['👍🏿', "👍🏻"][random.randint(0, 1)], color=VkKeyboardColor.DEFAULT)
-    keyboard.add_button('Товар', color=VkKeyboardColor.DEFAULT)
-    keyboard.add_line()  # Переход на четвертую строку
-    keyboard.add_location_button()
+    if a == 0:
+        keyboard.add_button('Курьер', color=VkKeyboardColor.POSITIVE)
+        keyboard.add_button('Работодатель', color=VkKeyboardColor.POSITIVE)
+    elif a == 1:
+        keyboard.add_button(['👉🏿', '👉🏻'][random.randint(0, 1)], color=VkKeyboardColor.DEFAULT)
+        keyboard.add_button(['👍🏿', "👍🏻"][random.randint(0, 1)], color=VkKeyboardColor.DEFAULT)
+        keyboard.add_line() 
+        keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
+    elif a == 2:
+        keyboard.add_button('Подтверждаю', color=VkKeyboardColor.DEFAULT)
+        keyboard.add_line()  # Переход на четвертую строку
+        keyboard.add_location_button()
+        keyboard.add_line() 
+        keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
     return keyboard.get_keyboard()
 
 
