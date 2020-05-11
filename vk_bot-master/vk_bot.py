@@ -85,7 +85,6 @@ class VkBot:
                 perem = message.split('\n')
                 perem.append(picture)
                 self.create_new_in_GG(perem)
-                print("ffffffffffffff")
                 return f"Ваш заказ принят"
 
 
