@@ -13,16 +13,25 @@ class VkBot:
 
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
 
-    def create_new(self, dannye):
+    def create_new_in_GG(self, dannye):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        db_path = os.path.join(BASE_DIR, "PupilPremiumTable.db")
+        db_path = os.path.join(BASE_DIR, "Goods.db")
         with sqlite3.connect(db_path) as db:
-            conn = sqlite3.connect('\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\Goods.db')
+            conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
             cursor.execute('''INSERT INTO GG (Name, Address, Address_log, Goods, Period, Coment, Photo) VALUES (?, ?, ?, ?, ?, ?, ?)''', (dannye[1], dannye[2], dannye[3], dannye[3], dannye[4], dannye[5], dannye[6]))
             conn.commit()
             conn.close()
-
+        
+    def create_new_in_Goods_processed(self, dannye):
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(BASE_DIR, "Goods_In_processing.db")
+        with sqlite3.connect(db_path) as db:
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute('''INSERT INTO Goods_processed (ID_from_GG, Who_took, condition) VALUES (?, ?, ?)''', (dannye[0], dannye[0], dannye[0]))
+            conn.commit()
+            conn.close()
 
     def get_address(address):
         URL = f"https://geocode-maps.yandex.ru/1.x/?apikey={self.API_KEY}&geocode={lat},{lon}&format=json&sco=latlong&kind=house&results=1&lang=ru_RU"
@@ -58,7 +67,7 @@ class VkBot:
                 picture = f"vk.com/photo{messag.attachments['attach1']}"
                 perem = message.split()
                 perem.append(picture)
-                self.create_new(perem)
+                self.create_new_in_GG(perem)
                 return f"Ваш заказ принят"
 
 
@@ -71,6 +80,8 @@ class VkBot:
             return f"Супер, вы курьер! Чтобы посмотреть заказы, нажмите «👉🏻»"
         # Курьер получает заказ
         elif message == '👉🏿' or message == '👉🏻' :
+             BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            db_path = os.path.join(BASE_DIR, "Goods.db")
             conn = sqlite3.connect('Goods.db')
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM GG ORDER BY RANDOM() LIMIT 1")
@@ -82,7 +93,7 @@ class VkBot:
             return f"!!!!!!\nВот и {results[0]} заказ \nИмя заказчика - {results[1][1:-1]} \nКуда доставлять - {results[2][2:-1]} \nТовар - {results[4][2:-1]} \n{results[6][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
-            
+
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
             return f"Не понимаю о чем вы...\nВозможные команды:\n«Курьер»\n«Работодатель»"
