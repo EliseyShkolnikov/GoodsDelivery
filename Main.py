@@ -18,6 +18,7 @@ class GG(db.Model):
     Period = db.Column(db.String())
     Coment = db.Column(db.String())
     Photo = db.Column(db.String())
+    Condition = db.Column(db.String())
 
 
 @app.route('/main')
@@ -72,7 +73,7 @@ def create():
     except:
         log = '59.14, 37.9'
     new_task = GG(Name=request.form['name'], Address=request.form['address'], Address_log=log, Goods=request.form['goods'],
-                  Period=request.form['period'], Coment=request.form['coment'], Photo=request.form['photo'])
+                  Period=request.form['period'], Coment=request.form['coment'], Photo=request.form['photo'], Condition='In_progress')
     db.session.add(new_task)
     db.session.commit()
     return redirect(url_for('contacts1'))

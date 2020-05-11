@@ -19,8 +19,8 @@
         }
     </style>
     <title>GoodsDelivery</title>
-
-    <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b" type="text/javascript"></script>
     <script>
         
 
@@ -43,10 +43,10 @@
             controls: [
                 'zoomControl', // Ползунок масштаба
                 'rulerControl', // Линейка
-                'routeButtonControl', // Панель маршрутизации
                 'trafficControl', // Пробки
-                'typeSelector', // Переключатель слоев карты
+                'typeSelector', // Переключатель слоев карты 
                 'fullscreenControl', // Полноэкранный режим
+                'routePanelControl',
  
                 // Поисковая строка
                 new ymaps.control.SearchControl({
@@ -61,6 +61,25 @@
                 ]
             });
         var control = myMap.controls.get('routePanelControl');
+        control.routePanel.options.set({
+            // Типы маршрутизации, которые будут отображаться на панели.
+            // Пользователи смогут переключаться между этими типами.
+            types: {
+               auto: true,
+               pedestrian: true,
+               taxi: true,
+               masstransit: true,
+               bicycle: true
+            }
+        });
+
+        control.routePanel.geolocate('from');
+        control.routePanel.state.set({
+        type: "auto",
+
+        // Адрес конечной точки.
+        to: '' 
+    });
 
  
     }
@@ -152,7 +171,7 @@
         <script language="JavaScript">
             function change()
             {
-                alert("Hi! We take a order. Please complete the order!");
+                alert("Hi! You take a order. Please complete the order!");
             }
                 
         </script>
@@ -196,13 +215,13 @@
                     <h1>Number - {{GG.ID}}</h1>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Name - <span class="{% if GG.done %} done {% endif %}">{{GG.Name}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Address - <span class="{% if GG.done %} done {% endif %}">{{GG.Address}}</span>
-                        <a href="#" class="popup-open"> ↓ Посмотреть на карте ↓</a></li>
+                        <a href="#" class="popup-open"> ↓↓↓ Loock at map ↓↓↓ </a><a>(Enter in the manual)</a></li>
+
                     <li class="list-group-item"; style='width: 30%;float: left;'>Goods - <span class="{% if GG.done %} done {% endif %}">{{GG.Goods}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Period - <span class="{% if GG.done %} done {% endif %}">{{GG.Period}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Coment - <span class="{% if GG.done %} done {% endif %}">{{GG.Coment}}</span></li> 
-                    <img src={{GG.Photo}} width=20% alt="бот"/>    
-                <a href="{{url_for('delete', ID=GG.ID)}}" class="btn btn-danger btn-sm" onclick = 'change();'>
-                Take this</a>     
+                    <img src={{GG.Photo}} width=20% alt="Not found"/>    
+                <a href="{{url_for('delete', ID=GG.ID)}}" class="btn btn-danger btn-sm" onclick = 'change();'>Take this</a>     
                 <hr>
             </li>         
             {% endfor %}
