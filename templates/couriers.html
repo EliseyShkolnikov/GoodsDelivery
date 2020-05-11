@@ -45,7 +45,81 @@
     <script>  
       width=document.body.clientWidth; // ширина  
       height=document.body.clientHeight; // высота  
-    </script>  
+    </script> 
+    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b" type="text/javascript"></script>
+    <script>
+        
+
+    // Функция ymaps.ready() будет вызвана, когда
+    // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
+    ymaps.ready(init);
+ 
+    function init() {
+    var myMap = new ymaps.Map("map", {
+            center: [55.76, 37.64],
+            zoom: 10
+        }, {
+            searchControlProvider: 'yandex#search'
+        }),
+
+    // Создаем геообъект с типом геометрии "Точка".
+        myGeoObject = new ymaps.GeoObject({
+            // Описание геометрии.
+            geometry: {
+                type: "Point",
+                coordinates: [55.8, 37.8]
+            },
+            // Свойства.
+            properties: {
+                // Контент метки.
+                iconContent: 'Я тащусь',
+                hintContent: 'Ну давай уже тащи'
+            }
+        }, {
+            // Опции.
+            // Иконка метки будет растягиваться под размер ее содержимого.
+            preset: 'islands#blackStretchyIcon',
+            // Метку можно перемещать.
+            draggable: true
+        }),
+        myPieChart = new ymaps.Placemark([
+            55.847, 37.6
+        ], {
+            // Данные для построения диаграммы.
+            data: [
+                {weight: 8, color: '#0E4779'},
+                {weight: 6, color: '#1E98FF'},
+                {weight: 4, color: '#82CDFF'}
+            ],
+            iconCaption: "Диаграмма"
+        }, {
+            // Зададим произвольный макет метки.
+            iconLayout: 'default#pieChart',
+            // Радиус диаграммы в пикселях.
+            iconPieChartRadius: 30,
+            // Радиус центральной части макета.
+            iconPieChartCoreRadius: 10,
+            // Стиль заливки центральной части.
+            iconPieChartCoreFillStyle: '#ffffff',
+            // Cтиль линий-разделителей секторов и внешней обводки диаграммы.
+            iconPieChartStrokeStyle: '#ffffff',
+            // Ширина линий-разделителей секторов и внешней обводки диаграммы.
+            iconPieChartStrokeWidth: 3,
+            // Максимальная ширина подписи метки.
+            iconPieChartCaptionMaxWidth: 200
+        });
+
+    myMap.geoObjects
+        .add(new ymaps.Placemark([55.790139, 37.814052], {
+            balloonContent: 'цвет <strong>голубой</strong>',
+            iconCaption: 'Очень длиннный, но невероятно интересный текст'
+        }, {
+            preset: 'islands#blueCircleDotIconWithCaption',
+            iconCaptionMaxWidth: '50'
+        }));
+    }
+    </script>
 </head>
 <body>
 <div class="wrapper">
@@ -84,6 +158,7 @@
   <div class="form-group">
     <label for="address">Address</label>
     <input type="address" class="form-control" name='address' id="address" aria-describedby="addressHelp" placeholder="Full address">
+    <button type="button" class="" >Check your address</button>
   </div>
   <div class="form-group">
     <label for="goods">Your goods</label>
@@ -111,10 +186,7 @@
   <button type="submit" class="btn btn-primary" >Submit</button>
 </form>
 
-  <a1 class="ml-5"; style= 'float: right; margin-right: 50px;'>
-        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Abb29cd16039f82e3a826cf5191219ce410fc03a455fbb3260faf5ea093acf081&amp;width=1450&amp;height=600&amp;lang=ru_RU&amp;scroll=true&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b">
-        </script>
-  </a1>
+<div id="map" style="width: 73%; height: 650px; float: right; margin-right: 3%;"></div>
   
 </div>
 
