@@ -112,7 +112,7 @@ class VkBot:
             return f"!!!!!!\nВот и {results[0]} заказ \nИмя заказчика - {results[1][1:-1]} \nКуда доставлять - {results[2][2:-1]} \nТовар - {results[4][2:-1]} \n{results[6][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
-            to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"F"]
+            to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"{results[1]}"]
             self.create_new_in_Goods_processed(to_upload)
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
