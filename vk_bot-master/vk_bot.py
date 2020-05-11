@@ -29,7 +29,7 @@ class VkBot:
         with sqlite3.connect(db_path) as db:
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
-            cursor.execute('''INSERT INTO Goods_processed (ID_from_GG, Who_took, condition) VALUES (?, ?, ?)''', (dannye[0], dannye[0], dannye[0]))
+            cursor.execute('''INSERT INTO Goods_processed (ID_from_GG, Who_took, condition) VALUES (?, ?, ?)''', (dannye[0], dannye[1], dannye[2]))
             conn.commit()
             conn.close()
 
@@ -93,10 +93,13 @@ class VkBot:
             return f"!!!!!!\nВот и {results[0]} заказ \nИмя заказчика - {results[1][1:-1]} \nКуда доставлять - {results[2][2:-1]} \nТовар - {results[4][2:-1]} \n{results[6][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
-
+            print(results)
+            to_upload = [results[0], f"{self._USERNAME} ({results[1][1:-1]})", "Принято"]
+            self.create_new_in_Goods_processed(to_upload)
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
             return f"Не понимаю о чем вы...\nВозможные команды:\n«Курьер»\n«Работодатель»"
+        
     @staticmethod
     def _clean_all_tag_from_str(string_line):
         """
