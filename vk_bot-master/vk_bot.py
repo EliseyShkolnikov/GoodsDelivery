@@ -25,13 +25,15 @@ class VkBot:
         
     def create_new_in_Goods_processed(self, dannye):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        db_path = os.path.join(BASE_DIR, "Goods_In_processing.db")
+        db_path = os.path.join(BASE_DIR, "Goods_In_processing.sqlite")
         with sqlite3.connect(db_path) as db:
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
             cursor.execute('''INSERT INTO Goods_processed (ID_from_GG, Who_took, condition) VALUES (?, ?, ?)''', (dannye[0], dannye[1], dannye[2]))
             conn.commit()
             conn.close()
+    def hide_from_GG(self, dannye):
+        pass
 
     def get_address(address):
         URL = f"https://geocode-maps.yandex.ru/1.x/?apikey={self.API_KEY}&geocode={lat},{lon}&format=json&sco=latlong&kind=house&results=1&lang=ru_RU"
@@ -87,14 +89,14 @@ class VkBot:
             cursor.execute("SELECT * FROM GG ORDER BY RANDOM() LIMIT 1")
             results1 = cursor.fetchall()
             print(results1)
+            global results
             results = "'".join(str(results1)[2:-2].split("'")).split(',')
             print(results)
             conn.close()
             return f"!!!!!!\nВот и {results[0]} заказ \nИмя заказчика - {results[1][1:-1]} \nКуда доставлять - {results[2][2:-1]} \nТовар - {results[4][2:-1]} \n{results[6][:-1]} \nЧтобы принять нажмите «👍🏻»"
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿':
-            print(results)
-            to_upload = [results[0], f"{self._USERNAME} ({results[1][1:-1]})", "Принято"]
+            to_upload = [results[0], f"vk.com/id{self._USER_ID}", "Принято курьером"]
             self.create_new_in_Goods_processed(to_upload)
             return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
         else:
