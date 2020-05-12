@@ -15,7 +15,7 @@ num = 0
 def write_msg(user_id, message):
     num = bot.update_board()
     vk.method('messages.send', {
-              'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
+              'user_id': user_id, 'message': message, "attachment": "photo-222992763_457254652", 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
 
 
 def StayHomeKeyboard(a):
