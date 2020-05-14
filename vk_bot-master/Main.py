@@ -15,8 +15,6 @@ def write_msg(user_id, message):
     num = bot.update_board()
     d = message[-1]
     if d[0:5] == 'photo':
-        print("aaaaaaaaaaaaa")
-        print(d)
         vk.method('messages.send', {
               'user_id': user_id, 'message': message[0], "attachment": d, 'random_id': random.randint(0, 2048)})
     else:
@@ -32,13 +30,18 @@ def StayHomeKeyboard(a):
         keyboard.add_button(['👉🏿', '👉🏻', '👉'][random.randint(0, 2)], color=VkKeyboardColor.DEFAULT)
         keyboard.add_button(['👍🏿', '👍🏻', '👍'][random.randint(0, 2)], color=VkKeyboardColor.DEFAULT)
         keyboard.add_line() 
-        keyboard.add_button('Готово', color=VkKeyboardColor.POSITIVE)
-        keyboard.add_line() 
         keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
     elif a == 2:
         keyboard.add_button('Подтверждаю', color=VkKeyboardColor.DEFAULT)
         keyboard.add_line()  # Переход на четвертую строку
         keyboard.add_location_button()
+        keyboard.add_line() 
+        keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
+    elif a == 3:
+        keyboard.add_button(['👉🏿', '👉🏻', '👉'][random.randint(0, 2)], color=VkKeyboardColor.DEFAULT)
+        keyboard.add_button(['👍🏿', '👍🏻', '👍'][random.randint(0, 2)], color=VkKeyboardColor.DEFAULT)
+        keyboard.add_line() 
+        keyboard.add_button('Готово', color=VkKeyboardColor.POSITIVE)
         keyboard.add_line() 
         keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
     return keyboard.get_keyboard()

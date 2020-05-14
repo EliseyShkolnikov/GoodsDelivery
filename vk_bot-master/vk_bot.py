@@ -84,8 +84,8 @@ class VkBot:
         global first_flag_to_debug
         global second_flag_to_debug
         global update_board_return
-        first_flag_to_debug = False
-        second_flag_to_debug = False
+        # first_flag_to_debug = False
+        # second_flag_to_debug = False
         update_board_return = 0
         message = messag.text
         # Привет
@@ -169,7 +169,7 @@ class VkBot:
             if first_flag_to_debug:
                 first_flag_to_debug = False
                 second_flag_to_debug = True
-                update_board_return = 1
+                update_board_return = 3
                 to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"{results[1]}"]
                 self.create_new_in_Goods_processed(to_upload)
                 return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
@@ -190,6 +190,8 @@ class VkBot:
         if update_board_return == 1:
             return update_board_return
         if update_board_return == 2:
+            return update_board_return
+        if update_board_return == 3:
             return update_board_return
 
     @staticmethod
