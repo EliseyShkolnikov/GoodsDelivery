@@ -25,6 +25,8 @@ class VkBot:
         self._USER_ID = user_id
         self._USERNAME = self._get_user_name_from_vk_id(user_id)
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
+        global Flaag
+        Flaag = False
 
     # Like shitcode?
     def take_pic_from_Main(self, pic_url):
@@ -38,7 +40,7 @@ class VkBot:
         with sqlite3.connect(db_path) as db:
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
-            cursor.execute('''INSERT INTO GG (Name, ID_user, Address, Address_log, Goods, Period, Coment, Photo, Condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', (f"{dannye[1]} vk.com/id{self._USER_ID}", f"vk.com/id{self._USER_ID}" dannye[2], str(test.Map.get_address(dannye[2]), dannye[3], dannye[4], dannye[5], dannye[6], "Принят на сервере"))
+            cursor.execute('''INSERT INTO GG (Name, ID_user, Address, Address_log, Goods, Period, Coment, Photo, Condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', (f"{dannye[1]} vk.com/id{self._USER_ID}", f"vk.com/id{self._USER_ID}", dannye[2], str(test.Map.get_address(dannye[2])), dannye[3], dannye[4], dannye[5], dannye[6], "Принят на сервере"))
             conn.commit()
             conn.close()
         
@@ -155,8 +157,8 @@ class VkBot:
             third_vk_pict = vk.method('photos.saveMessagesPhoto', {'photo': second_vk_pict['photo'], 'server': second_vk_pict['server'], 'hash': second_vk_pict['hash']})[0]
             to_return_pic_from_db = 'photo{}_{}'.format(third_vk_pict['owner_id'], third_vk_pict['id']).strip()
             # Подготовка к отправке фото
-            return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[2][2:-1]} 
-            Товар - {results[4][2:-1]} \n{results[6]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db
+            return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[3][2:-1]} 
+            Товар - {results[5][2:-1]} \n{results[7]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db
         # Курьер получает заказ
 
         elif message.upper() == 'ГОТОВО':
@@ -165,14 +167,23 @@ class VkBot:
                 cond = 2
                 to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"{results[1]}"]
                 self.update_condition_order_GG(to_upload[0], cond)
-                to_return = f"Клиент принял заказ"
-                global text_notification
+                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+                db_path = os.path.join(BASE_DIR, "Goods.db")
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                cursor.execute(f'SELECT ID_user,  FROM GG WHERE ID = {results[0]}')
+                results1 = cursor.fetchall()
                 global id_notification
-                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                text_notification = to_return
-                id_notification = self._USER_ID
-                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                return to_return
+                print("////////////////////////")
+                print(results1)
+                print("////////////////////////")
+                id_notification = results1
+                conn.close()
+                global text_notification
+                text_notification = "Курьер подошел к вам"
+                global Flaag
+                Flaag = True
+                return f"Клиент получил уведомление о заказе"
             else:
                 return f"Вы не подтвердили заказ, чтобы нажимать 'Готово'"
 
@@ -210,16 +221,18 @@ class VkBot:
     def new_message_notification(self):
         global text_notification
         global id_notification
+        global Flaag
         print("'''''''''''''''''''''''''''''''''''''''")
         print(text_notification)
         print(id_notification)
         print("'''''''''''''''''''''''''''''''''''''''")
-
         one = text_notification
         two = id_notification
-        # text_notification = []
-        # id_notification = []
-        return [one, two]
+        three = Flaag
+        text_notification = ['']
+        id_notification = ['']
+        Flaag = False
+        return [one, two, three]
 
     @staticmethod
     def _clean_all_tag_from_str(string_line):

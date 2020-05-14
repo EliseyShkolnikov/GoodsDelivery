@@ -23,13 +23,13 @@ def write_msg(user_id, message):
 
 def notifications(message):
     print("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[")
-    print(message[1])
+    print(message[2])
     print("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[")
-    if message == ['', '']:
+    if not message[2]:
         pass
     else:
         vk.method('messages.send', {
-                'user_id': message[1], 'message': message[0], 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
+                'user_id': int(str(message[1])[12:-4]), 'message': message[0], 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
 
 def StayHomeKeyboard(a):
     keyboard = VkKeyboard(one_time=False)
