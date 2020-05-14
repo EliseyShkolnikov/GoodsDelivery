@@ -6,7 +6,6 @@ import vk_api
 from vk_api.longpoll import *
 from vk_api.keyboard import *
 from vk_api.utils import get_random_id
-
 # --
 from vk_bot import VkBot
 # --
@@ -14,9 +13,15 @@ from vk_bot import VkBot
 num = 0
 def write_msg(user_id, message):
     num = bot.update_board()
-    vk.method('messages.send', {
-              'user_id': user_id, 'message': message, "attachment": "photo-222992763_457254652", 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
-
+    d = message[-1]
+    if d[0:5] == 'photo':
+        print("aaaaaaaaaaaaa")
+        print(d)
+        vk.method('messages.send', {
+              'user_id': user_id, 'message': message[0], "attachment": d, 'random_id': random.randint(0, 2048)})
+    else:
+        vk.method('messages.send', {
+                  'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
 
 def StayHomeKeyboard(a):
     keyboard = VkKeyboard(one_time=False)
@@ -24,8 +29,10 @@ def StayHomeKeyboard(a):
         keyboard.add_button('Курьер', color=VkKeyboardColor.POSITIVE)
         keyboard.add_button('Работодатель', color=VkKeyboardColor.POSITIVE)
     elif a == 1:
-        keyboard.add_button(['👉🏿', '👉🏻'][random.randint(0, 1)], color=VkKeyboardColor.DEFAULT)
-        keyboard.add_button(['👍🏿', "👍🏻"][random.randint(0, 1)], color=VkKeyboardColor.DEFAULT)
+        keyboard.add_button(['👉🏿', '👉🏻', '👉'][random.randint(0, 2)], color=VkKeyboardColor.DEFAULT)
+        keyboard.add_button(['👍🏿', '👍🏻', '👍'][random.randint(0, 2)], color=VkKeyboardColor.DEFAULT)
+        keyboard.add_line() 
+        keyboard.add_button('Готово', color=VkKeyboardColor.POSITIVE)
         keyboard.add_line() 
         keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
     elif a == 2:
@@ -53,15 +60,15 @@ for event in longpoll.listen():
         if event.to_me:
             print(f'New message from vk.com/id{event.user_id}', end='')
             bot = VkBot(event.user_id)
-            if event.text == "":
-                pass
-            else:
-                write_msg(event.user_id, bot.new_message(event))
             if "'attach1_type': 'photo'" in str(event.attachments):
                 msg = vk_to_use_pic.messages.getById(message_ids=event.message_id)
                 photo_url = str(msg['items'][0]['attachments'][0]['photo']['sizes']).split("'type':")[-1].split()[2][1:-2]
                 bot.take_pic_from_Main(photo_url)
                 print('Photo attach ' + photo_url)
+            if event.text == "":
+                pass
+            else:
+                write_msg(event.user_id, bot.new_message(event))
             if event.text:
                 print(f"Text - {event.text}")
             print("-------------------")
