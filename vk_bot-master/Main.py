@@ -22,9 +22,6 @@ def write_msg(user_id, message):
                   'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
 
 def notifications(message):
-    print("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[")
-    print(message[2])
-    print("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[")
     if not message[2]:
         pass
     else:
