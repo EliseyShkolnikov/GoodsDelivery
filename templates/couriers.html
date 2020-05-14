@@ -159,17 +159,19 @@ function init() {
   </div>
   <div class="form-group">
     <label for="Comentarios">Comentarios</label>
-    <textarea class="form-control" name='coment' id="Comentarios" rows="3"></textarea>
+    <input class="form-control" name='coment' id="Comentarios" rows="3">
   </div>
   <div class="form-group">
-    <label for="exampleInputFile">File photo</label>
-    <input type="file" class="form-control-file" name='photo' id="exampleInputFile" aria-describedby="fileHelp">
+    <label for="exampleInputFile">File photo </label>
+    <textarea type="goods" class="form-control" name='photo' id="goods" aria-describedby="nameHelp" placeholder="Insert the link"></textarea>
+    <script async src="//wampi.ru/sdk/pup.js" data-url="https://wampi.ru/upload" data-palette="blue" data-auto-insert="direct-links"></script>
     <small id="fileHelp" class="form-text text-muted">Try to show your product in full in the photo</small>
+
   </div>
   <button type="submit" class="btn btn-primary" >Submit</button>
 </form>
 
-<div id="map" style="width: 73%; height: 650px; float: right; margin-right: 3%;"></div>
+<div id="map" style="width: 73%; height: 620px; float: right; margin-right: 3%;"></div>
   
 </div>
 
