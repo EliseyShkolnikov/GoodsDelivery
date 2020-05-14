@@ -16,9 +16,7 @@ token = "b1652a5628af75bb7a91fd5cb0b47aae8699a941ad25c637ad6573ca49c157f722036e5
 vk = vk_api.VkApi(token=token)
 class VkBot:
     global text_notification
-    global id_notification
     text_notification = ''
-    id_notification = ''
     def __init__(self, user_id):
         self.API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
         print("\nСоздан объект бота!")
@@ -167,10 +165,8 @@ class VkBot:
                 self.update_condition_order_GG(to_upload[0], cond)
                 to_return = f"Клиент принял заказ"
                 global text_notification
-                global id_notification
                 print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 text_notification = to_return
-                id_notification = self._USER_ID
                 print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 return to_return
             else:
@@ -207,16 +203,14 @@ class VkBot:
         elif update_board_return == 4:
             return update_board_return
 
-    def new_message_notification(self):
+    def new_message_notification():
         global text_notification
-        global id_notification
         print("'''''''''''''''''''''''''''''''''''''''")
         print(text_notification)
-        print(id_notification)
         print("'''''''''''''''''''''''''''''''''''''''")
 
         one = text_notification
-        two = id_notification
+        two = "f"
         # text_notification = []
         # id_notification = []
         return [one, two]
