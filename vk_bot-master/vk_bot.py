@@ -16,7 +16,9 @@ token = "b1652a5628af75bb7a91fd5cb0b47aae8699a941ad25c637ad6573ca49c157f722036e5
 vk = vk_api.VkApi(token=token)
 class VkBot:
     global text_notification
+    global id_notification
     text_notification = ''
+    id_notification = ''
     def __init__(self, user_id):
         self.API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
         print("\nСоздан объект бота!")
@@ -36,7 +38,7 @@ class VkBot:
         with sqlite3.connect(db_path) as db:
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
-            cursor.execute('''INSERT INTO GG (Name, ID_user, Address, Address_log, Goods, Period, Coment, Photo, Condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', (f"{dannye[1]} vk.com/id{self._USER_ID}", str(self._USER_ID), dannye[2], str(test.Map.get_address(dannye[2]), dannye[3], dannye[4], dannye[5], dannye[6], "Принят на сервере"))
+            cursor.execute('''INSERT INTO GG (Name, ID_user, Address, Address_log, Goods, Period, Coment, Photo, Condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', (f"{dannye[1]} vk.com/id{self._USER_ID}", f"vk.com/id{self._USER_ID}" dannye[2], str(test.Map.get_address(dannye[2]), dannye[3], dannye[4], dannye[5], dannye[6], "Принят на сервере"))
             conn.commit()
             conn.close()
         
@@ -165,8 +167,10 @@ class VkBot:
                 self.update_condition_order_GG(to_upload[0], cond)
                 to_return = f"Клиент принял заказ"
                 global text_notification
+                global id_notification
                 print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 text_notification = to_return
+                id_notification = self._USER_ID
                 print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 return to_return
             else:
@@ -203,14 +207,16 @@ class VkBot:
         elif update_board_return == 4:
             return update_board_return
 
-    def new_message_notification():
+    def new_message_notification(self):
         global text_notification
+        global id_notification
         print("'''''''''''''''''''''''''''''''''''''''")
         print(text_notification)
+        print(id_notification)
         print("'''''''''''''''''''''''''''''''''''''''")
 
         one = text_notification
-        two = "f"
+        two = id_notification
         # text_notification = []
         # id_notification = []
         return [one, two]
