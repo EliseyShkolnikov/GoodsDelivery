@@ -21,6 +21,16 @@ def write_msg(user_id, message):
         vk.method('messages.send', {
                   'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
 
+def notifications(message):
+    print("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[")
+    print(message[1])
+    print("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[")
+    if message == ['', '']:
+        pass
+    else:
+        vk.method('messages.send', {
+                'user_id': message[1], 'message': message[0], 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
+
 def StayHomeKeyboard(a):
     keyboard = VkKeyboard(one_time=False)
     if a == 0:
@@ -34,8 +44,8 @@ def StayHomeKeyboard(a):
     elif a == 2:
         keyboard.add_button('Подтверждаю', color=VkKeyboardColor.DEFAULT)
         keyboard.add_line()  # Переход на четвертую строку
-        keyboard.add_location_button()
-        keyboard.add_line() 
+        # keyboard.add_location_button()
+        # keyboard.add_line() 
         keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
     elif a == 3:
         keyboard.add_button(['👉🏿', '👉🏻', '👉'][random.randint(0, 2)], color=VkKeyboardColor.DEFAULT)
@@ -43,6 +53,12 @@ def StayHomeKeyboard(a):
         keyboard.add_line() 
         keyboard.add_button('Готово', color=VkKeyboardColor.POSITIVE)
         keyboard.add_line() 
+        keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
+    elif a == 4:
+        # keyboard.add_button('Подтверждаю', color=VkKeyboardColor.DEFAULT)
+        # keyboard.add_line()  # Переход на четвертую строку
+        # keyboard.add_location_button()
+        # keyboard.add_line() 
         keyboard.add_button('Назад', color=VkKeyboardColor.NEGATIVE)
     return keyboard.get_keyboard()
 
@@ -72,6 +88,7 @@ for event in longpoll.listen():
                 pass
             else:
                 write_msg(event.user_id, bot.new_message(event))
+                notifications(bot.new_message_notification())
             if event.text:
                 print(f"Text - {event.text}")
             print("-------------------")
