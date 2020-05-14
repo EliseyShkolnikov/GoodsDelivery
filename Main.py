@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 class GG(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(200))
+    ID_user = db.Column(db.String())
     Address = db.Column(db.String())
     Address_log = db.Column(db.String())
     Goods = db.Column(db.String())

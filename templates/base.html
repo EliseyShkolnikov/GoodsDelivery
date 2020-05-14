@@ -213,10 +213,12 @@
             {% for GG in tasks %}
             <li class="list-group-item">
                     <h1>Number - {{GG.ID}}</h1>
-                    <li class="list-group-item"; style='width: 30%;float: left;'>Name - <span class="{% if GG.done %} done {% endif %}">{{GG.Name}}</span></li>
+                    <li class="list-group-item"; style='width: 30%;float: left;'>Name - <span class="{% if GG.done %} done {% endif %}">{{GG.Name}}</span>
+                        <a href="#" class="{% if GG.done %} done {% endif %}">{{GG.ID_user}}</a>
+                    </li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Address - <span class="{% if GG.done %} done {% endif %}">{{GG.Address}}</span>
-                        <a href="#" class="popup-open"> ↓↓↓ Loock at map ↓↓↓ </a><a>(Enter in the manual)</a></li>
-
+                        <a href="#" class="popup-open"> ↓↓↓ Loock at map ↓↓↓ </a><a>(Enter in the manual)</a>
+                    </li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Goods - <span class="{% if GG.done %} done {% endif %}">{{GG.Goods}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Period - <span class="{% if GG.done %} done {% endif %}">{{GG.Period}}</span></li>
                     <li class="list-group-item"; style='width: 30%;float: left;'>Coment - <span class="{% if GG.done %} done {% endif %}">{{GG.Coment}}</span></li> 
