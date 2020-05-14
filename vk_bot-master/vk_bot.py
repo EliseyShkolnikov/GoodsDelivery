@@ -25,6 +25,12 @@ class VkBot:
         self._USER_ID = user_id
         self._USERNAME = self._get_user_name_from_vk_id(user_id)
         self._COMMANDS = ["ПРИВЕТ", "КУРЬЕР", "РАБОТОДАТЕЛЬ", "ПОКА"]
+        global Flaag
+        Flaag = False
+        # global first_flag_to_debug
+        # global second_flag_to_debug
+        # first_flag_to_debug = False
+        # second_flag_to_debug = False
 
     # Like shitcode?
     def take_pic_from_Main(self, pic_url):
@@ -38,7 +44,7 @@ class VkBot:
         with sqlite3.connect(db_path) as db:
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
-            cursor.execute('''INSERT INTO GG (Name, ID_user, Address, Address_log, Goods, Period, Coment, Photo, Condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', (f"{dannye[1]} vk.com/id{self._USER_ID}", f"vk.com/id{self._USER_ID}" dannye[2], str(test.Map.get_address(dannye[2]), dannye[3], dannye[4], dannye[5], dannye[6], "Принят на сервере"))
+            cursor.execute('''INSERT INTO GG (Name, ID_user, Address, Address_log, Goods, Period, Coment, Photo, Condition) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)''', (f"{dannye[1]} vk.com/id{self._USER_ID}", f"vk.com/id{self._USER_ID}", dannye[2], str(test.Map.get_address(dannye[2])), dannye[3], dannye[4], dannye[5], dannye[6], "Принят на сервере"))
             conn.commit()
             conn.close()
         
@@ -86,11 +92,7 @@ class VkBot:
         return user_name.split()[0]
 
     def new_message(self, messag):
-        global first_flag_to_debug
-        global second_flag_to_debug
         global update_board_return
-        # first_flag_to_debug = False
-        # second_flag_to_debug = False
         update_board_return = 0
         message = messag.text
         # Привет
@@ -129,63 +131,88 @@ class VkBot:
 
         # Курьер получает заказ
         elif message == '👉🏿' or message == '👉🏻' or message == '👉':
-            first_flag_to_debug = True
             update_board_return = 1
-            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-            db_path = os.path.join(BASE_DIR, "Goods.db")
-            conn = sqlite3.connect(db_path)
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM GG WHERE Condition="Принят на сервере" ORDER BY RANDOM() LIMIT 1 ')
-            results1 = cursor.fetchall()
-            global results
-            results = "'".join(str(results1)[2:-2].split("'")).split(',')
-            conn.close()
-            # Загрузка фото
-            filedata = urlopen(results[-2][2:-1]) 
-            datatowrite = filedata.read()
-        
-            with open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'wb') as f:
-                f.write(datatowrite)
-            f.close()
-            # Загрузка фото
+            try:
+                global first_flag_to_debug
+                first_flag_to_debug = True
+                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+                db_path = os.path.join(BASE_DIR, "Goods.db")
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                cursor.execute('SELECT * FROM GG WHERE Condition="Принят на сервере" ORDER BY RANDOM() LIMIT 1 ')
+                results1 = cursor.fetchall()
+                global results
+                results = "'".join(str(results1)[2:-2].split("'")).split(',')
+                conn.close()
+                # Загрузка фото
+                filedata = urlopen(results[-2][2:-1]) 
+                datatowrite = filedata.read()
 
-            # Подготовка к отправке фото
-            first_vk_pict = vk.method('photos.getMessagesUploadServer')
-            second_vk_pict = requests.post(first_vk_pict['upload_url'], files={'photo': open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'rb')}).json()
-            third_vk_pict = vk.method('photos.saveMessagesPhoto', {'photo': second_vk_pict['photo'], 'server': second_vk_pict['server'], 'hash': second_vk_pict['hash']})[0]
-            to_return_pic_from_db = 'photo{}_{}'.format(third_vk_pict['owner_id'], third_vk_pict['id']).strip()
-            # Подготовка к отправке фото
-            return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[2][2:-1]} 
-            Товар - {results[4][2:-1]} \n{results[6]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db
-        # Курьер получает заказ
+                with open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'wb') as f:
+                    f.write(datatowrite)
+                f.close()
+                # Загрузка фото
+
+                # Подготовка к отправке фото
+                first_vk_pict = vk.method('photos.getMessagesUploadServer')
+                second_vk_pict = requests.post(first_vk_pict['upload_url'], files={'photo': open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'rb')}).json()
+                third_vk_pict = vk.method('photos.saveMessagesPhoto', {'photo': second_vk_pict['photo'], 'server': second_vk_pict['server'], 'hash': second_vk_pict['hash']})[0]
+                to_return_pic_from_db = 'photo{}_{}'.format(third_vk_pict['owner_id'], third_vk_pict['id']).strip()
+                # Подготовка к отправке фото
+                return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[3][2:-1]} 
+                Товар - {results[5][2:-1]} \n{results[7]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db
+            except:
+                return "Свободных заказов, к сожалению, нет"
+                # Курьер получает заказ
 
         elif message.upper() == 'ГОТОВО':
+            global second_flag_to_debug
             if second_flag_to_debug:
                 second_flag_to_debug = False
                 cond = 2
                 to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"{results[1]}"]
                 self.update_condition_order_GG(to_upload[0], cond)
-                to_return = f"Клиент принял заказ"
-                global text_notification
+
+                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+                db_path = os.path.join(BASE_DIR, "Goods.db")
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                cursor.execute(f'SELECT ID_user FROM GG WHERE ID = {results[0]}')
+                results1 = cursor.fetchall()
                 global id_notification
-                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                text_notification = to_return
-                id_notification = self._USER_ID
-                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                return to_return
+                id_notification = results1
+                conn.close()
+
+                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+                db_path = os.path.join(BASE_DIR, "Goods.db")
+                conn = sqlite3.connect(db_path)
+                cursor = conn.cursor()
+                cursor.execute(f'SELECT Goods FROM GG WHERE ID = {results[0]}')
+                results2 = cursor.fetchall()
+                conn.close()
+
+                global text_notification
+                text_notification = f"Курьер подошел к вам по заказу - {str(results2)[3:-4].strip()}"
+                global Flaag
+                Flaag = True
+                return f"Клиент получил уведомление о заказе"
             else:
                 return f"Вы не подтвердили заказ, чтобы нажимать 'Готово'"
 
         # Решение принять ли заказ
         elif message.upper() == '👍🏻' or message.upper() == '👍🏿' or message.upper() == '👍':
-            if first_flag_to_debug:
-                first_flag_to_debug = False
-                second_flag_to_debug = True
-                update_board_return = 3
-                to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"{results[1]}"]
-                self.create_new_in_Goods_processed(to_upload)
-                return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
-            else:
+            try:
+                if first_flag_to_debug:
+                    first_flag_to_debug = False
+                    second_flag_to_debug = True
+                    update_board_return = 3
+                    to_upload = [results[0], f"vk.com/id{self._USER_ID}", f"{results[1]}"]
+                    self.create_new_in_Goods_processed(to_upload)
+                    return f"Вы приняли заказ!» При выполнении доставки напишите «Готово»"
+                else:
+                    return f"Нельзя принять заказ, не выбрав какой заказ хотите принять"
+            except:
+                update_board_return = 1
                 return f"Нельзя принять заказ, не выбрав какой заказ хотите принять"
         elif message.upper() == 'НАЗАД':
             update_board_return = 0
@@ -210,16 +237,14 @@ class VkBot:
     def new_message_notification(self):
         global text_notification
         global id_notification
-        print("'''''''''''''''''''''''''''''''''''''''")
-        print(text_notification)
-        print(id_notification)
-        print("'''''''''''''''''''''''''''''''''''''''")
-
+        global Flaag
         one = text_notification
         two = id_notification
-        # text_notification = []
-        # id_notification = []
-        return [one, two]
+        three = Flaag
+        text_notification = ['']
+        id_notification = ['']
+        Flaag = False
+        return [one, two, three]
 
     @staticmethod
     def _clean_all_tag_from_str(string_line):
