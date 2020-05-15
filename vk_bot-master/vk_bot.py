@@ -145,6 +145,13 @@ class VkBot:
                 results = "'".join(str(results1)[2:-2].split("'")).split(',')
                 conn.close()
 
+                conn2 = sqlite3.connect(db_path)
+                cursor1 = conn2.cursor()
+                cursor1.execute(f'SELECT Address_log FROM GG WHERE ID = {results[0]}')
+                ad_log = cursor1.fetchall()
+                print(str(ad_log)[4:-5])
+                conn.close()
+
                 # Загрузка фото
                 print(results[-2][2:-1])
                 filedata = Request(results[-2][2:-1], headers={'User-Agent': 'Mozilla/5.0'})
@@ -154,13 +161,14 @@ class VkBot:
                 f.close()
                 # Загрузка фото
                 # Подготовка к отправке фото
+                print(f"{results[4]}{results[5]}".strip()[2:-2])
                 first_vk_pict = vk.method('photos.getMessagesUploadServer')
                 second_vk_pict = requests.post(first_vk_pict['upload_url'], files={'photo': open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'rb')}).json()
                 third_vk_pict = vk.method('photos.saveMessagesPhoto', {'photo': second_vk_pict['photo'], 'server': second_vk_pict['server'], 'hash': second_vk_pict['hash']})[0]
                 to_return_pic_from_db = 'photo{}_{}'.format(third_vk_pict['owner_id'], third_vk_pict['id']).strip()
                 # Подготовка к отправке фото
                 return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[3][2:-1]} 
-                    Товар - {results[5][2:-1]} \n{results[7]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db
+                    Товар - {results[5][2:-1]} \n{results[7]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db, str(ad_log)[4:-5]
                 # Курьер получает заказ
             except:
                 return f"Свободных заказов, к сожалению, нет"

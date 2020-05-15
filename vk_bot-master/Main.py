@@ -12,12 +12,18 @@ from vk_bot import VkBot
 
 num = 0
 def write_msg(user_id, message):
+    print("hmmmmmmmmm")
+    print(message[-1].split(", "))
     num = bot.update_board()
-    d = message[-1]
+    lat_long = message[-1].split(", ")
+    lat = lat_long[0]
+    long = lat_long[1]
+    d = message[-2]
     if d[0:5] == 'photo':
         vk.method('messages.send', {
-              'user_id': user_id, 'message': message[0], "attachment": d, 'random_id': random.randint(0, 2048)})
+              'user_id': user_id, 'message': message[0], "attachment": d, 'lat': lat, 'long': long, 'random_id': random.randint(0, 2048)})
     else:
+        print("This?")
         vk.method('messages.send', {
                   'user_id': user_id, 'message': message, 'random_id': random.randint(0, 2048), 'keyboard': StayHomeKeyboard(num)})
 
