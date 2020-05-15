@@ -15,6 +15,8 @@ from vk_api.utils import get_random_id
 token = "b1652a5628af75bb7a91fd5cb0b47aae8699a941ad25c637ad6573ca49c157f722036e551983aca45fdd1"
 vk = vk_api.VkApi(token=token)
 class VkBot:
+    global second_flag_to_debug
+    second_flag_to_debug = False
     global text_notification
     global id_notification
     text_notification = ''
@@ -28,9 +30,7 @@ class VkBot:
         global Flaag
         Flaag = False
         # global first_flag_to_debug
-        # global second_flag_to_debug
         # first_flag_to_debug = False
-        # second_flag_to_debug = False
 
     # Like shitcode?
     def take_pic_from_Main(self, pic_url):
@@ -134,7 +134,9 @@ class VkBot:
             try:
                 update_board_return = 1
                 global first_flag_to_debug
+                global second_flag_to_debug
                 first_flag_to_debug = True
+                second_flag_to_debug = False
                 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
                 db_path = os.path.join(BASE_DIR, "Goods.db")
                 conn = sqlite3.connect(db_path)
@@ -175,7 +177,6 @@ class VkBot:
                 return f"Свободных заказов, к сожалению, нет"
 
         elif message.upper() == 'ГОТОВО':
-            global second_flag_to_debug
             if second_flag_to_debug:
                 second_flag_to_debug = False
                 cond = 2
