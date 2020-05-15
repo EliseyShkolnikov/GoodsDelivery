@@ -3,7 +3,7 @@ import sqlite3
 import requests
 import os.path
 import io
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 import test
 
 import vk_api
@@ -132,37 +132,34 @@ class VkBot:
         # Курьер получает заказ
         elif message == '👉🏿' or message == '👉🏻' or message == '👉':
             update_board_return = 1
-            try:
-                global first_flag_to_debug
-                first_flag_to_debug = True
-                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-                db_path = os.path.join(BASE_DIR, "Goods.db")
-                conn = sqlite3.connect(db_path)
-                cursor = conn.cursor()
-                cursor.execute('SELECT * FROM GG WHERE Condition="Принят на сервере" ORDER BY RANDOM() LIMIT 1 ')
-                results1 = cursor.fetchall()
-                global results
-                results = "'".join(str(results1)[2:-2].split("'")).split(',')
-                conn.close()
-                # Загрузка фото
-                filedata = urlopen(results[-2][2:-1]) 
-                datatowrite = filedata.read()
-
-                with open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'wb') as f:
-                    f.write(datatowrite)
-                f.close()
-                # Загрузка фото
-
-                # Подготовка к отправке фото
-                first_vk_pict = vk.method('photos.getMessagesUploadServer')
-                second_vk_pict = requests.post(first_vk_pict['upload_url'], files={'photo': open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'rb')}).json()
-                third_vk_pict = vk.method('photos.saveMessagesPhoto', {'photo': second_vk_pict['photo'], 'server': second_vk_pict['server'], 'hash': second_vk_pict['hash']})[0]
-                to_return_pic_from_db = 'photo{}_{}'.format(third_vk_pict['owner_id'], third_vk_pict['id']).strip()
-                # Подготовка к отправке фото
-                return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[3][2:-1]} 
+            global first_flag_to_debug
+            first_flag_to_debug = True
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            db_path = os.path.join(BASE_DIR, "Goods.db")
+            conn = sqlite3.connect(db_path)
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM GG WHERE Condition="Принят на сервере" ORDER BY RANDOM() LIMIT 1 ')
+            results1 = cursor.fetchall()
+            global results
+            results = "'".join(str(results1)[2:-2].split("'")).split(',')
+            conn.close()
+            
+            # Загрузка фото
+            print(results[-2][2:-1])
+            filedata = Request(results[-2][2:-1], headers={'User-Agent': 'Mozilla/5.0'})
+            datatowrite = urlopen(filedata).read()
+            with open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'wb') as f:
+                f.write(datatowrite)
+            f.close()
+            # Загрузка фото
+            # Подготовка к отправке фото
+            first_vk_pict = vk.method('photos.getMessagesUploadServer')
+            second_vk_pict = requests.post(first_vk_pict['upload_url'], files={'photo': open('C:\\Users\\666\\Desktop\\GoodsDelivery\\vk_bot-master\\to_send.jpg', 'rb')}).json()
+            third_vk_pict = vk.method('photos.saveMessagesPhoto', {'photo': second_vk_pict['photo'], 'server': second_vk_pict['server'], 'hash': second_vk_pict['hash']})[0]
+            to_return_pic_from_db = 'photo{}_{}'.format(third_vk_pict['owner_id'], third_vk_pict['id']).strip()
+            # Подготовка к отправке фото
+            return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[3][2:-1]} 
                 Товар - {results[5][2:-1]} \n{results[7]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db
-            except:
-                return "Свободных заказов, к сожалению, нет"
                 # Курьер получает заказ
 
         elif message.upper() == 'ГОТОВО':

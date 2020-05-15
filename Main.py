@@ -1,11 +1,11 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-#from flask_ngrok import run_with_ngrok
+from flask_ngrok import run_with_ngrok
 import test
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vk_bot-master/Goods.db'
-# run_with_ngrok(app)
+run_with_ngrok(app)
 db = SQLAlchemy(app)
 
 
@@ -81,5 +81,5 @@ def create():
 
 
 if __name__ == '__main__':
-    app.run(port=8080, host='0.0.0.0', debug=True)
-#    app.run()
+    # app.run(port=8080, host='0.0.0.0', debug=True)
+    app.run()
