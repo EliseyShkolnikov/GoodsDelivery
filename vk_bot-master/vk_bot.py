@@ -167,8 +167,9 @@ class VkBot:
                 third_vk_pict = vk.method('photos.saveMessagesPhoto', {'photo': second_vk_pict['photo'], 'server': second_vk_pict['server'], 'hash': second_vk_pict['hash']})[0]
                 to_return_pic_from_db = 'photo{}_{}'.format(third_vk_pict['owner_id'], third_vk_pict['id']).strip()
                 # Подготовка к отправке фото
-                return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1]} \nАдрес доставки - {results[3][2:-1]} 
-                    Товар - {results[5][2:-1]} \n{results[7]} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db, str(ad_log)[4:-5]
+                print(results)
+                return f"""!!!!!!\nВот и свободный заказ №{results[0]} \nИмя и вк заказчика - {results[1][2:-1].replace("'", "")} \nАдрес доставки - {results[3][2:-1].replace("'", "")} 
+                    Товар - {results[7][1:-1].replace("'", "")} \n{results[9].replace("'", "")} \nЧтобы принять нажмите «👍🏻»""", to_return_pic_from_db, str(ad_log)[4:-5]
                 # Курьер получает заказ
             except:
                 return f"Свободных заказов, к сожалению, нет"
