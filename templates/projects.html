@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>ПАРАЛЛЕЛИ</title>
+    <style>
+      hr{
+        border: none; /* Убираем границу */
+        background-color: blue; /* Цвет линии */
+        color: blue; /* Цвет линии для IE6-7 */
+        height: 2px; /* Толщина линии */
+        margin: 50px;
+        }
+    </style>
+    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=40d1649f-0493-4b70-98ba-98533de7710b" type="text/javascript"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+<div class="content">
+  <div>
+    <h1 class="ml-5">Сайт Калининградского ПЕН-центра
+    <img src="https://i0.wampi.ru/2020/09/17/kisspng-book-discussion-club-paperback-clip-art-book-stack-png-5ab147d10371c8.4080003015215676970141.png" width=4% alt="бот"/>
+    </h1>
+    <p></p>
+    <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link" href="/main">ГЛАВНАЯ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/event">СОБЫТИЯ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/our_librarygallery">НАША БИБЛИОТЕКА</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/gallery">ГАЛЕРЕЯ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/projects">ПРОЕКТЫ</a>
+        </li>
+    </ul>
+    <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+              <a class="nav-link" href="/authors_opinion">АВТОРСКОЕ СЛОВО</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/frequent_opinion">ЧАСТНОЕ МНЕНИЕ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/young_voice">МОЛОДЫЕ ГОЛОСА</a>
+            </li>
+    </ul>
+
+  </div>
+  <p></p>
+  <h3 class="ml-5">Проекты</h3>
+  <hr>
+  <p></p>
+
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Пен-центр
+          </button>
+        </h5>
+      </div>
+      <div class="ml-5">
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          Региональная общественная организация «Калининградский ПЕН-центр» является неправительственным некоммерческим, добровольным, самоуправляемым объединением профессиональных литераторов и творческих работников. 
+          ПЕН-центр создан по рекомендации Исполкома Русского ПЕН-центра в качестве Региональной (областной) общественной организации и утверждён Решением Учредительного собрания его членов в ноябре 2002 года. 
+          ПЕН-центр действует на принципах добровольности, самоуправления, равенства членов, гласности, законности, демократии и гуманизма.
+          Целями и задачами ПЕН-центра являются:
+          - всемерное развитие отечественной культуры, широкое распространение ее за рубежом, ознакомление населения со всеми богатствами мировой культуры, участие в различных мероприятиях, способствующих практическому осуществлению этой задачи;
+          - развитие всех форм связей российской литературы и российских писателей с литературами и писателями других стран, содействие всеми доступными средствами, в то числе и с помощью самостоятельных изданий, популяризации произведений российских писателей за рубежом и иностранных писателей в России в интересах мира, взаимопонимания и мирного сотрудничества между народами;
+          - выдвижение на премии, дипломы и иные отличия за достижения в области литературы и за особые успехи в защите права на свободу самовыражения;
+          - оказание помощи членам Русского ПЕН-центра и других национальных центров Международного ПЕН-клуба в их творческой и общественной деятельности;
+          - проведение платных и благотворительных мероприятий - лекций, литературно-художественных вечеров, концертов, фестивалей и других мероприятий, с участием членов Русского и других национальных ПЕН-центров;
+           - привлечение различных учреждений, организаций, предпринимательских структур, создание общественных фондов и иных общественных объединений для осуществления уставных целей и задач. 
+          Члены Калининградского ПЕН-центра полностью принимают Хартию Международного ПЕН-клуба, заложенную в основу деятельности организации в 1921 году её основателем Джоном Голсуорси: свобода слова и творчества писателя, художника вне зависимости границ и политической конюнктуры, защита прав и свобод творчества и личности художника в мире.
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <p></p>
+<hr>
+<div class="footer">
+    <div class="card bg-dark text-white">
+      <img src="https://ia.wampi.ru/2020/09/12/BEZYMYNNYId25bd9caca42346a.png" class="card-img" alt="...">
+      <div class="card-img-overlay">
+        <h4 class="card-title">Сайт Калининградского ПЕН-центр <a href="https://yandex.ru">Яндекс</a></h4>
+        <h5 class='p-0 m-0'>Обратная связь:</h5>
+        <h6>
+          Почта - <br>
+          Телефон - <br>
+        </h6>
+        <p class="card-text" align="right">2020.© Сайт Калининградского ПЕН-центр</p>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> 
+</body>
+</html>

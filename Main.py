@@ -4,48 +4,69 @@ from flask_ngrok import run_with_ngrok
 import test
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///vk_bot-master/Goods.db'
-run_with_ngrok(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Baze.db'
+#run_with_ngrok(app)
 db = SQLAlchemy(app)
+
+
+class Photos(db.Model):
+    ID = db.Column(db.Integer, primary_key=True)
+    Photo = db.Column(db.String())
 
 
 class GG(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
     Name = db.Column(db.String(200))
-    ID_user = db.Column(db.String())
-    Address = db.Column(db.String())
-    Address_log = db.Column(db.String())
-    Goods = db.Column(db.String())
-    Period = db.Column(db.String())
+    Name_book = db.Column(db.String())
     Coment = db.Column(db.String())
+    Date = db.Column(db.String())
     Photo = db.Column(db.String())
-    Condition = db.Column(db.String())
-
+    Photo_2 = db.Column(db.String())
+    Photo_3 = db.Column(db.String())
+    
 
 @app.route('/main')
 def main():
     return render_template('main.html')
 
 
-@app.route('/index')
-def index():
+@app.route('/event')
+def event():
+    return render_template('event.html')
+
+
+@app.route('/our_library')
+def our_library():
     tasks = GG.query.all()
-    return render_template('base.html', tasks=tasks)
+    return render_template('our_library.html', tasks=tasks)
 
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.route('/gallery')
+def gallery():
+    tasks = Photos.query.all()
+    return render_template('gallery.html', tasks=tasks)
 
 
-@app.route('/contacts')
-def contacts():
-    return render_template('contacts.html')
+@app.route('/projects')
+def projects():
+    return render_template('projects.html')
 
-
-@app.route('/couriers')
+@app.route('/authors_opinion')
 def contacts1():
-    return render_template('couriers.html')
+    return render_template('authors_opinion.html')
+
+@app.route('/frequent_opinion')
+def frequent_opinion():
+    return render_template('frequent_opinion.html')
+
+
+@app.route('/young_voice')
+def young_voice():
+    return render_template('young_voice.html')
+
+
+
+
 
 
 @app.route('/login')
@@ -72,7 +93,7 @@ def create():
     try:
         log = str(test.Map.get_address(request.form['address']))[1:-1]
     except:
-        log = '59.14, 37.9'
+        log = '59.14, 37.9http://localhost:8080/our_library'
     new_task = GG(Name=request.form['name'], Address=request.form['address'], Address_log=log, Goods=request.form['goods'],
                   Period=request.form['period'], Coment=request.form['coment'], Photo=request.form['photo'], Condition='In_progress')
     db.session.add(new_task)
@@ -81,5 +102,5 @@ def create():
 
 
 if __name__ == '__main__':
-    # app.run(port=8080, host='0.0.0.0', debug=True)
-    app.run()
+    app.run(port=8080, host='0.0.0.0', debug=True)
+    #app.run()

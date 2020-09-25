@@ -8,6 +8,9 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
     crossorigin="anonymous">
     <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
   <style>
       hr{
           border: none; /* Убираем границу */
@@ -35,81 +38,119 @@
       .footer {
         flex: 0 0 auto;
       }
-  </style> 
+  </style>
+  <title>ПАРАЛЛЕЛИ</title>
 
 </head>
 <body>
 <div class="wrapper">
 <div class="content">
   <div>
-    <h1  class="ml-5">GoodsDelivery
-    <img src="https://sun9-54.userapi.com/c857320/v857320278/17ab71/PLa_D6qPLTA.jpg" width=4% alt="бот"/>
+    <h1  class="ml-5">Сайт Калининградского ПЕН-центра
+    <img src="https://i0.wampi.ru/2020/09/17/kisspng-book-discussion-club-paperback-clip-art-book-stack-png-5ab147d10371c8.4080003015215676970141.png" width=4% alt="бот"/>
     </h1>
     <p></p>
     <ul class="nav nav-pills nav-fill">
             <li class="nav-item">
-              <a class="nav-link active" href="/main">Main</a>
+              <a class="nav-link active" href="/main">ГЛАВНАЯ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/index">Order goods</a>
+              <a class="nav-link" href="/event">СОБЫТИЯ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/couriers">For couriers</a>
+              <a class="nav-link" href="/our_library">НАША БИБЛИОТЕКА</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/about">Who are we?</a>
+              <a class="nav-link" href="/gallery">ГАЛЕРЕЯ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/contacts">Contacts</a>
+              <a class="nav-link" href="/projects">ПРОЕКТЫ</a>
+            </li>
+        </ul>
+
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+              <a class="nav-link" href="/authors_opinion">АВТОРСКОЕ СЛОВО</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/frequent_opinion">ЧАСТНОЕ МНЕНИЕ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/young_voice">МОЛОДЫЕ ГОЛОСА</a>
             </li>
         </ul>
   </div>
   <p></p>
-  <h3 class="ml-5">Main</h3>
+  <h3 class="ml-5">Новости</h3>
   <hr>
-  <div style="width: 90%; margin-left: 5%;">
-    <div class="card-deck">
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Hi, bro</h5>
-          <p class="card-text">GoodsDelivery</p>
+  <div class="content" style="width: 90%; margin-left: 5%;">
+      <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://i0.wampi.ru/2020/09/13/00-rusemoter-raushen-svetlogorsk_cut-photo.ru.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Море</h5>
+            <p>Какой-нибудь текст к морю</p>
+          </div>
         </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
+        <div class="carousel-item">
+          <img src="https://i0.wampi.ru/2020/09/13/photoeditorsdk-export.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Город</h5>
+            <p>Какой-нибудь текст</p>
+          </div>
         </div>
-      </div>
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Hi, bro</h5>
-          <p class="card-text">GoodsDelivery</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
-      </div>
-      <div class="card">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Hi, bro</h5>
-          <p class="card-text">GoodsDelivery</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
+        <div class="carousel-item">
+          <img src="https://ia.wampi.ru/2020/09/13/pixil-frame-0_2_cut-photo.ru.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Улица</h5>
+            <p>Какой-нибудь текст</p>
+          </div>
         </div>
       </div>
+      <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
   </div>
-   <p></p>
-   <hr>
+
+  <hr>
+
+<div class="jumbotron" style="width: 90%; margin-left: 5%;">
+  <h1 class="display-4">Дорогие друзья!</h1>
+  <p class="lead">Вячеслав Карпенко</p>
+  <hr class="my-4">
+  <p>Я рад приветствовать вас на страницах интернет-журнала «Параллели». Это в определенной мере ремейк литературно-публицистический  журнала «Параллели», который издавал Калининградский Пен-центр в 2008 – 2016 годах. В те годы наш журнал стал творческой региональной площадкой, на которой российские, литовские и польские писатели публиковали свои новые произведения, знакомили читателей с наиболее значимыми событиями в культурной жизни стран Балтии, делились своими мыслями по самому широкому спектру современной культурной и общественной жизни. 
+В одну и ту же реку нельзя войти дважды. Но мы постараемся возродить все лучшее, чем отличался журнал «Параллели». Благо дело к этому есть много предпосылок. Само геополитическое положение Калининградской области предполагает дальнейшее сближение интересов, культурных, экономических и других связей с соседними странами. Это сближение невозможно без понимания друг друга. Путь к этому пониманию лежит, прежде всего, через литературу, искусство - как выразителей души, мировоззрения и традиционного уклада нации. Интернет-журнал, в котором могут встретиться современные литераторы стран Балтии - прямой путь к взаимопониманию и культурного обмена. Он призван представить трибуну для всестороннего общения мыслящим журналистам и философам, для которых идея созидания и мирного сотрудничества важнее временных амбиций, а правда, историческая и современная, необходимее политического лукавства…
+И, конечно, страницы нашего журнала будут открыты молодым авторам, как русским, так и иноязычным. Для этого все необходимые условия, а, главное, опыт совместных семинаров и мастер-классов в Калининграде и Клайпеде,  Гданьске. Так журнал «Параллели» широко отмечал 300-летие классика литовской литературы Кристионаса Донелайтиса, а Калининградский ПЕН-центр первым напечатал параллельное издание на двух языках его поэмы «Времена года», включённое ЮНЭСКО в ряд лучших произведений Европы. Такого рода творческие контакты и открытия, поддерживающие взаимный интерес и уважение, обязательно будут продолжены.
+Я уверен, что осуществление нашего Проекта станет еще одним импульсом, расширяющим границы сотрудничества области, а через нас – и России, с братскими народами Евразии и Европейского Союза, создания благоприятного имиджа нашей страны через культуру и Слово. Ибо лишь прямой и непредвзятый диалог культур и людей способен обеспечить достойное будущее нашей земле.
+</p>
+</div>
+
+  <hr>
+
 <div class="footer">
     <div class="card bg-dark text-white">
-      <img src="https://sun1-15.userapi.com/ifbQNgHTvHVfWHY9bUYcX4FrK_UKkZ_lmog_Xg/CEIAdlR2QK0.jpg" class="card-img" alt="...">
+      <img src="https://ia.wampi.ru/2020/09/12/BEZYMYNNYId25bd9caca42346a.png" class="card-img" alt="...">
       <div class="card-img-overlay">
-        <h5 class="card-title">GoodsDelivery</h5>
-        <p class="card-text">This website it is property Sofronov Sergei ans Shkolnikov Elisei. All products it is forbidden to use it without written confirmation.</p>
-        <p class="card-text" align="right">2020. GoodsDelivery</p>
+        <h4 class="card-title">Сайт Калининградского ПЕН-центр <a href="https://yandex.ru">Яндекс</a></h4>
+        <h5 class='p-0 m-0'>Обратная связь:</h5>
+        <h6>
+          Почта - <br>
+          Телефон - <br>
+        </h6>
+        <p class="card-text" align="right">2020.© Сайт Калининградского ПЕН-центр</p>
+        <div></div>
       </div>
     </div>
   </div>
